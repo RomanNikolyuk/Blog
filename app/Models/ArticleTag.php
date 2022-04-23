@@ -10,4 +10,5 @@ class ArticleTag extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $table = 'article_tag';
 }
