@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('index');
 Route::get('/articles', [\App\Http\Controllers\ArticleController::class, 'index'])->name('article.index');
 Route::get('/articles/{article}', [\App\Http\Controllers\ArticleController::class, 'view'])->name('article.view');
+
+require __DIR__.'/admin.php';
+require __DIR__.'/auth.php';

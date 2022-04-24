@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 
-Route::prefix('admin')->middleware('auth')->group(function() {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::prefix('admin')->group(function() {
+    Route::resource('/articles', \App\Http\Controllers\Admin\ArticleController::class)
+        ->only('index', 'create', 'store', 'edit', 'update');
 });
