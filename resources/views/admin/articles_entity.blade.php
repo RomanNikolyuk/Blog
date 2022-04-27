@@ -38,6 +38,7 @@
                     class=" w-full justify-center align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
 
                     <form class="w-full max-w-lg"
+                          id="form"
                           action="{{ isset($article) ? route('articles.update', $article->id) : route('articles.store') }}"
                           method="post">
                         @csrf
@@ -60,12 +61,13 @@
 
                             <div class="w-full mb-8">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                       for="grid-last-name">
+                                       for="description">
                                     Description
                                 </label>
-                                <textarea name="description"
+                                <div id="description"></div>
+                                {{--<textarea name="description"
                                           class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
-                                          id="small_desc">{{ $article->description ?? old('description') }}</textarea>
+                                          id="description">{{ $article->description ?? old('description') }}</textarea>--}}
                             </div>
 
 
@@ -104,5 +106,7 @@
             </div>
         </div>
     </div>
-
+    @section('scripts')
+        <script src="{{ asset('js/articles.js') }}" defer></script>
+    @endsection
 </x-app-layout>

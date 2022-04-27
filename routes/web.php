@@ -18,5 +18,12 @@ Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('
 Route::get('/articles', [\App\Http\Controllers\ArticleController::class, 'index'])->name('article.index');
 Route::get('/articles/{article}', [\App\Http\Controllers\ArticleController::class, 'view'])->name('article.view');
 
-require __DIR__.'/admin.php';
+Route::prefix('admin')->group(function() {
+    Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class)
+        ->only('index', 'create', 'store', 'edit', 'update');
+
+    Route::post('upload', [\App\Http\Controllers\Admin\ArticleController::class, 'upload'])->name('articles.upload');
+});
+
+
 require __DIR__.'/auth.php';
