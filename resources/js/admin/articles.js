@@ -5,7 +5,6 @@ import Embed from '@editorjs/embed';
 import PostSide from "./PostSide";
 import '../../css/articles.css';
 import Gallery from "./Gallery";
-const LinkTool = require('@editorjs/link');
 const csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
 
 const editorJs = new EditorJS({
@@ -19,7 +18,6 @@ const editorJs = new EditorJS({
                 placeholder: 'Enter a level'
             }
         },
-
         image: {
             class: ImageTool,
             config: {
