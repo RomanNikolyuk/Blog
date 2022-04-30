@@ -23,6 +23,7 @@ Route::prefix('admin')->group(function() {
         ->only('index', 'create', 'store', 'edit', 'update');
 
     Route::post('upload', [\App\Http\Controllers\Admin\ArticleController::class, 'upload'])->name('articles.upload');
+    Route::post('remove', [\App\Http\Controllers\Admin\ArticleController::class, 'remove']);
 });
 
 

@@ -27,62 +27,43 @@
     height: 25px;
     border-radius: 50%;
     cursor: pointer;
+    z-index: 100;
 }
 
 .post-side__button > path {
     fill: #ccc;
 }
 
-
-
-
-
-
-
-
-
-
-/*@media (min-width: 1280px) {
-    .c-post-group .c-post-socials-box {
-        width:auto
-    }
-
-    .c-post-group .c-post-side {
-        margin-right: -74px;
-        width:354px
-    }
+.gallery__wrapper {
+    display: flex;
+    justify-content: space-between;
 }
 
-@media (min-width: 1024px) {
-    .c-post-group {
-        width:1000px
-    }
-
-    .c-post-group > * {
-        width:660px
-    }
-
-    .c-post-group .c-post-data-box, .c-post-group .c-post-lead, .c-post-group .c-post-quiz, .c-post-group .c-post-socials-box, .c-post-group .c-post-tag, .c-post-group .c-post-title {
-        width:100%
-    }
-
-    .c-post-group .c-post-side {
-        clear: right;
-        width:300px
-    }
+.gallery__container {
+    width: 45%;
+    position: relative;
 }
 
-@media (min-width: 1280px) {
-    .c-post-side {
-        margin-right: -74px;
-        width:354px
-    }
+.gallery__image {
+    transition: .1s ease-in;
 }
 
-@media (min-width: 1024px) {
-    .c-post-side {
-        display: block;
-        float: right;
-        width:300px
-    }
-}*/
+.gallery__image {
+    border: 1px solid #007bff;
+}
+
+.gallery__remove-icon {
+    position: absolute;
+    right: -33px;
+    top: 0;
+    background: #fff;
+    cursor: pointer;
+}
+
+.gallery__caption {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 15px 15px;
+    margin: 15px 0;
+    display: block;
+}
