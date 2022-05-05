@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.post-side__title {
+.post-side__title, .article-block__title, .article-block__link, .simage__caption {
     width: 100%;
     border: 1px solid #ccc;
     padding: 15px 15px;
@@ -19,7 +19,7 @@
     height: 100px;
 }
 
-.post-side__button {
+.plus__button {
     position: absolute;
     right: 0;
     top: 100%;
@@ -66,4 +66,12 @@
     padding: 15px 15px;
     margin: 15px 0;
     display: block;
+}
+
+.megaphoto__image {
+    width: 100% !important;
+}
+
+.simage__image {
+    width: 60%;
 }

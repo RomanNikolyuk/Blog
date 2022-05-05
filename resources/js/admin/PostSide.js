@@ -1,4 +1,6 @@
-class PostSide {
+import AddFieldButton from "./components/AddFieldButton";
+
+class PostSide extends AddFieldButton{
     static get toolbox() {
         return {
             title: 'Side',
@@ -7,21 +9,17 @@ class PostSide {
     }
 
     render() {
-        const sideTitle = document.createElement('input');
+        const sideTitle = document.createElement('div');
         sideTitle.classList.add('post-side__title');
         sideTitle.placeholder = 'Enter Side Title';
+        sideTitle.contentEditable = true;
 
-        const sideTextElement = document.createElement('textarea');
+        const sideTextElement = document.createElement('div');
         sideTextElement.classList.add('post-side__text');
         sideTextElement.placeholder = 'Side Text';
+        sideTextElement.contentEditable = true;
 
-        const plusButton = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        plusButton.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        plusButton.setAttribute('viewBox', '0 0 24 24');
-        plusButton.innerHTML = '<path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>';
-        plusButton.classList.add('post-side__button');
-
-        plusButton.addEventListener('click', this.addField.bind(this));
+        const plusButton = this.getPlusButton(this.addField);
 
         this.wrapper = document.createElement('div');
         this.wrapper.appendChild(sideTitle);
@@ -34,16 +32,16 @@ class PostSide {
     }
 
     save(blockContent) {
-        const sideTitle = blockContent.firstChild.value;
+        const sideTitle = blockContent.querySelector('.post-side__title');
         const sideTexts = [];
         const sideTextsNodes = blockContent.querySelectorAll('.post-side__text');
 
         for (const sideText of sideTextsNodes) {
-            sideTexts.push(sideText.value);
+            sideTexts.push(sideText.innerHTML);
         }
 
         return {
-            title: sideTitle,
+            title: sideTitle.innerHTML,
             text: sideTexts
         }
     }
@@ -53,9 +51,10 @@ class PostSide {
     }
 
     addField() {
-        const newTextField = document.createElement('textarea');
+        const newTextField = document.createElement('div');
         newTextField.classList.add('post-side__text');
         newTextField.placeholder = 'Side Text';
+        newTextField.contentEditable = true;
 
         this.wrapper.appendChild(newTextField);
     }

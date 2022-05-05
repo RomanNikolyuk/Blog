@@ -1,11 +1,13 @@
 import EditorJS from "@editorjs/editorjs";
 const Header = require('@editorjs/header');
-import ImageTool from '@editorjs/image';
 import Embed from '@editorjs/embed';
 import PostSide from "./PostSide";
 import '../../css/articles.css';
 import Gallery from "./Gallery";
 const csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
+import List from "@editorjs/list";
+import ArticlesBlock from "./ArticlesBlock";
+import Image from "./Image";
 
 const editorJs = new EditorJS({
     holder: 'description',
@@ -18,20 +20,21 @@ const editorJs = new EditorJS({
                 placeholder: 'Enter a level'
             }
         },
-        image: {
-            class: ImageTool,
+        image: Image,
+        list: {
+            class: List,
+            inlineToolbar: true,
             config: {
-                endpoints: {
-                    byFile: '/admin/upload'
-                },
-                additionalRequestHeaders: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            },
+                defaultStyle: 'unordered'
+            }
         },
         embed: Embed,
-        side: PostSide,
-        gallery: Gallery
+        side: {
+            class: PostSide,
+            inlineToolbar: true
+        },
+        gallery: Gallery,
+        articlesBlock: ArticlesBlock
     },
 });
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         $articles = Article::orderBy('created_at', 'desc')
             ->take(6)

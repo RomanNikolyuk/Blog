@@ -35,7 +35,7 @@ class ArticleController extends Controller
 
         $image = $request->file('image');
         $imageName = Str::random(8).'.'.$image->getClientOriginalExtension();
-
+        // TODO: catch errors
         $image->storeAs('public/articles', $imageName);
 
         return [

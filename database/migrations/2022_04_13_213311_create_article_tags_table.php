@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('article_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id');
-            $table->foreignId('tag_id');
+            $table->foreignIdFor(\App\Models\Article::class);
+            $table->foreignIdFor(\App\Models\Tag::class);
         });
     }
 

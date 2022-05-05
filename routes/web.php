@@ -14,17 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('index');
+Route::get('/', \App\Http\Controllers\IndexController::class)->name('index');
 Route::get('/articles', [\App\Http\Controllers\ArticleController::class, 'index'])->name('article.index');
 Route::get('/articles/{article}', [\App\Http\Controllers\ArticleController::class, 'view'])->name('article.view');
 
-Route::prefix('admin')->group(function() {
-    Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class)
-        ->only('index', 'create', 'store', 'edit', 'update');
-
-    Route::post('upload', [\App\Http\Controllers\Admin\ArticleController::class, 'upload']);
-    Route::post('remove', [\App\Http\Controllers\Admin\ArticleController::class, 'remove']);
-});
-
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

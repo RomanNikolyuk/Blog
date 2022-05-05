@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrained();
+            $table->foreignIdFor(\App\Models\Article::class);
             $table->ipAddress();
         });
     }
