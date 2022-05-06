@@ -1,9 +1,11 @@
 import EditorJS from "@editorjs/editorjs";
+
 const Header = require('@editorjs/header');
 import Embed from '@editorjs/embed';
 import PostSide from "./PostSide";
 import '../../css/articles.css';
 import Gallery from "./Gallery";
+
 const csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
 import List from "@editorjs/list";
 import ArticlesBlock from "./ArticlesBlock";
@@ -39,10 +41,25 @@ const editorJs = new EditorJS({
 });
 
 
-document.querySelector('#form').addEventListener('submit', (event) => {
+document.querySelector('#form').addEventListener('submit', async (event) => {
     event.preventDefault();
+    const titleValue = document.querySelector('input[name="title"]').value;
+    const {blocks} = await editorJs.save();
+    const imageSrc = document.querySelector('input[name="image"]').getAttribute('src');
 
-    editorJs.save().then(output => {
-        console.log('Output', output);
-    });
+    const formData = new FormData;
+    formData.append('title', titleValue);
+    formData.append('description', JSON.stringify(blocks));
+    formData.append('image', imageSrc);
+
+    fetch('/admin/articles', {
+        method: "POST",
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+        .then(output => output.text())
+        .then(json => console.log(json));
+
 });

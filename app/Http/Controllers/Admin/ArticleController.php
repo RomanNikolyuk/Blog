@@ -26,7 +26,7 @@ class ArticleController extends Controller
     {
         Article::create($request->validated());
 
-        return redirect()->route('articles.index');
+        return response()->json(['success' => 1]);
     }
 
     public function upload(Request $request)
