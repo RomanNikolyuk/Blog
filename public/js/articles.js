@@ -2073,7 +2073,7 @@ document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function
           case 4:
             _yield$editorJs$save = _context.sent;
             blocks = _yield$editorJs$save.blocks;
-            imageSrc = document.querySelector('input[name="image"]').getAttribute('src');
+            imageSrc = document.querySelector('input[name="image"]').value;
             formData = new FormData();
             formData.append('title', titleValue);
             formData.append('description', JSON.stringify(blocks));
@@ -2085,9 +2085,7 @@ document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function
                 'X-CSRF-TOKEN': csrfToken
               }
             }).then(function (output) {
-              return output.text();
-            }).then(function (json) {
-              return console.log(json);
+              return window.location.href = '/admin/articles';
             });
 
           case 12:

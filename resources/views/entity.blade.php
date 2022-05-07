@@ -13,7 +13,7 @@
                 </div>
                 <h1 class="mb-4">{{ $article->title }}</h1>
                 <div class="post-content-body">
-                    <p>{{ $article->description }}</p>
+                    <p>{!! $article->description !!}</p>
                 </div>
                 <div class="pt-5">
                     <p>Tags:

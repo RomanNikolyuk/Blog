@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ asset('css/css.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/A.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/entity.css') }}">
 <body>
 
 <div class="wrap">

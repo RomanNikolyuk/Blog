@@ -45,7 +45,7 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const titleValue = document.querySelector('input[name="title"]').value;
     const {blocks} = await editorJs.save();
-    const imageSrc = document.querySelector('input[name="image"]').getAttribute('src');
+    const imageSrc = document.querySelector('input[name="image"]').value;
 
     const formData = new FormData;
     formData.append('title', titleValue);
@@ -59,7 +59,6 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
             'X-CSRF-TOKEN': csrfToken
         }
     })
-        .then(output => output.text())
-        .then(json => console.log(json));
+        .then(output => window.location.href = '/admin/articles');
 
 });
