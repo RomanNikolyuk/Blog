@@ -483,6 +483,9 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
   _createClass(PostSide, [{
     key: "render",
     value: function render() {
+      var primaryText = document.createElement('div');
+      primaryText.classList.add('post-side__primary-text', 'post-side__text');
+      primaryText.contentEditable = true;
       var sideTitle = document.createElement('div');
       sideTitle.classList.add('post-side__title');
       sideTitle.placeholder = 'Enter Side Title';
@@ -492,16 +495,24 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
       sideTextElement.placeholder = 'Side Text';
       sideTextElement.contentEditable = true;
       var plusButton = this.getPlusButton(this.addField);
+      var primaryTextWrapper = document.createElement('div');
+      primaryTextWrapper.classList.add('post-side__primary-text-wrapper');
+      primaryTextWrapper.appendChild(primaryText);
+      var sideWrapper = document.createElement('div');
+      sideWrapper.classList.add('post-side__side-wrapper');
+      sideWrapper.appendChild(sideTitle);
+      sideWrapper.appendChild(sideTextElement);
+      sideWrapper.appendChild(plusButton);
       this.wrapper = document.createElement('div');
-      this.wrapper.appendChild(sideTitle);
-      this.wrapper.appendChild(sideTextElement);
-      this.wrapper.appendChild(plusButton);
       this.wrapper.classList.add('post-side__container');
+      this.wrapper.appendChild(primaryTextWrapper);
+      this.wrapper.appendChild(sideWrapper);
       return this.wrapper;
     }
   }, {
     key: "save",
     value: function save(blockContent) {
+      var primaryText = blockContent.querySelector('.post-side__primary-text');
       var sideTitle = blockContent.querySelector('.post-side__title');
       var sideTexts = [];
       var sideTextsNodes = blockContent.querySelectorAll('.post-side__text');
@@ -521,8 +532,11 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
       }
 
       return {
-        title: sideTitle.innerHTML,
-        text: sideTexts
+        text: primaryText.innerHTML,
+        side: {
+          title: sideTitle.innerHTML,
+          text: sideTexts
+        }
       };
     }
   }, {
@@ -721,7 +735,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".post-side__container {\n    display: flex;\n    flex-wrap: wrap;\n    position: relative;\n}\n\n.post-side__title, .article-block__title, .article-block__link, .simage__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n}\n\n.post-side__text {\n    width: 100%;\n    border: 1px solid #eeeeee;\n    padding: 15px 15px;\n    margin: 15px 0;\n    height: 100px;\n}\n\n.plus__button {\n    position: absolute;\n    right: 0;\n    top: 100%;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 100;\n}\n\n.post-side__button > path {\n    fill: #ccc;\n}\n\n.gallery__wrapper {\n    display: flex;\n    justify-content: space-between;\n}\n\n.gallery__container {\n    width: 45%;\n    position: relative;\n}\n\n.gallery__image {\n    transition: .1s ease-in;\n}\n\n.gallery__image {\n    border: 1px solid #007bff;\n}\n\n.gallery__remove-icon {\n    position: absolute;\n    right: -33px;\n    top: 0;\n    background: #fff;\n    cursor: pointer;\n}\n\n.gallery__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n    display: block;\n}\n\n.megaphoto__image {\n    width: 100% !important;\n}\n\n.simage__image {\n    width: 60%;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".post-side__container {\n    display: flex;\n    justify-content: space-between;\n}\n\n.post-side__primary-text-wrapper {\n    width: 68%;\n}\n\n.post-side__primary-text {\n    height: 300px !important;\n}\n\n.post-side__side-wrapper {\n    position: relative;\n    width: 30%;\n}\n\n.post-side__title, .article-block__title, .article-block__link, .simage__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n}\n\n.post-side__text {\n    width: 100%;\n    border: 1px solid #eeeeee;\n    padding: 15px 15px;\n    margin: 15px 0;\n    height: 100px;\n}\n\n.plus__button {\n    position: absolute;\n    right: 0;\n    top: 100%;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 100;\n}\n\n.post-side__button > path {\n    fill: #ccc;\n}\n\n.gallery__wrapper {\n    display: flex;\n    justify-content: space-between;\n}\n\n.gallery__container {\n    width: 45%;\n    position: relative;\n}\n\n.gallery__image {\n    transition: .1s ease-in;\n}\n\n.gallery__image {\n    border: 1px solid #007bff;\n}\n\n.gallery__remove-icon {\n    position: absolute;\n    right: -33px;\n    top: 0;\n    background: #fff;\n    cursor: pointer;\n}\n\n.gallery__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n    display: block;\n}\n\n.megaphoto__image {\n    width: 100% !important;\n}\n\n.simage__image {\n    width: 60%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

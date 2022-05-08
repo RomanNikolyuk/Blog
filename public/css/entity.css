@@ -49,3 +49,12 @@ p {
     font-size: 15px;
     color: black;
 }
+
+.gallery__wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gallery__image {
+    width: 48%;
+}

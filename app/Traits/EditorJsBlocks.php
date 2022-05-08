@@ -5,7 +5,8 @@ namespace App\Traits;
 use App\Models\Article;
 use Spatie\Url\Url;
 
-trait EditorJsBlocks {
+trait EditorJsBlocks
+{
     /**
      * @throws \Exception
      */
@@ -15,7 +16,9 @@ trait EditorJsBlocks {
             'header' => $this->getHeaderHTML($block->data),
             'articlesBlock' => $this->getArticlesBlockHTML($block->data),
             'image' => $this->getImageHTML($block->data),
-            default => throw new \Exception("I don\'t know how to work with $block->type block")
+            'gallery' => $this->getGalleryHTML($block->data),
+            'side' => $this->getSideBlockHTML($block->data),
+            default => throw new \Exception("I don't know how to work with $block->type block")
         };
     }
 
@@ -58,7 +61,7 @@ RETURN;
 
     }
 
-    protected function getImageHTML(object $data) : string
+    protected function getImageHTML(object $data): string
     {
         $megaphoto = $data->options->megaphoto ? 'image__image--megaphoto' : '';
         return <<<HTML
@@ -68,7 +71,29 @@ RETURN;
                 <p class="image__small-caption">$data->smallCaption</p>
             </div>
 HTML;
+    }
 
+    protected function getGalleryHTML(object $data): string
+    {
+        $generateImagesHTML = function ($urls) {
+            $imagesHTMLArray = array_map(function ($url) {
+                return <<<HTML
+                    <img src="$url" alt="" class="gallery__image">
+HTML;
+            }, $urls);
 
+            return implode('', $imagesHTMLArray);
+        };
+
+        return <<<HTML
+            <div class="gallery__wrapper">
+                {$generateImagesHTML($data->urls)}
+            </div>
+HTML;
+    }
+
+    protected function getSideBlockHTML(object $data): string
+    {
+        return '';
     }
 }

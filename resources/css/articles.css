@@ -1,7 +1,19 @@
 .post-side__container {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.post-side__primary-text-wrapper {
+    width: 68%;
+}
+
+.post-side__primary-text {
+    height: 300px !important;
+}
+
+.post-side__side-wrapper {
     position: relative;
+    width: 30%;
 }
 
 .post-side__title, .article-block__title, .article-block__link, .simage__caption {

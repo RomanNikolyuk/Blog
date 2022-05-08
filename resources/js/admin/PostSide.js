@@ -9,29 +9,41 @@ class PostSide extends AddFieldButton{
     }
 
     render() {
+        const primaryText = document.createElement('div');
+        primaryText.classList.add('post-side__primary-text', 'post-side__text');
+        primaryText.contentEditable = true;
+
         const sideTitle = document.createElement('div');
         sideTitle.classList.add('post-side__title');
         sideTitle.placeholder = 'Enter Side Title';
         sideTitle.contentEditable = true;
-
         const sideTextElement = document.createElement('div');
         sideTextElement.classList.add('post-side__text');
         sideTextElement.placeholder = 'Side Text';
         sideTextElement.contentEditable = true;
-
         const plusButton = this.getPlusButton(this.addField);
 
-        this.wrapper = document.createElement('div');
-        this.wrapper.appendChild(sideTitle);
-        this.wrapper.appendChild(sideTextElement);
-        this.wrapper.appendChild(plusButton);
+        const primaryTextWrapper = document.createElement('div');
+        primaryTextWrapper.classList.add('post-side__primary-text-wrapper')
+        primaryTextWrapper.appendChild(primaryText);
 
+        const sideWrapper = document.createElement('div');
+        sideWrapper.classList.add('post-side__side-wrapper');
+
+        sideWrapper.appendChild(sideTitle);
+        sideWrapper.appendChild(sideTextElement);
+        sideWrapper.appendChild(plusButton);
+
+        this.wrapper = document.createElement('div');
         this.wrapper.classList.add('post-side__container');
+        this.wrapper.appendChild(primaryTextWrapper);
+        this.wrapper.appendChild(sideWrapper);
 
         return this.wrapper;
     }
 
     save(blockContent) {
+        const primaryText = blockContent.querySelector('.post-side__primary-text');
         const sideTitle = blockContent.querySelector('.post-side__title');
         const sideTexts = [];
         const sideTextsNodes = blockContent.querySelectorAll('.post-side__text');
@@ -41,8 +53,11 @@ class PostSide extends AddFieldButton{
         }
 
         return {
-            title: sideTitle.innerHTML,
-            text: sideTexts
+            text: primaryText.innerHTML,
+            side: {
+                title: sideTitle.innerHTML,
+                text: sideTexts
+            }
         }
     }
 
