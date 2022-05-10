@@ -62,6 +62,14 @@ class PostSide extends AddFieldButton{
     }
 
     validate(saveData) {
+        if (saveData.text.length < 4) {
+            return false;
+        }
+
+        if (saveData.side.title.length < 2) {
+            return false;
+        }
+
         return true;
     }
 

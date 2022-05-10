@@ -74,10 +74,26 @@ class Image extends Photo {
         const caption2 = blockContent.querySelector('#caption2');
 
         return Object.assign(this.data, {
-            url: image.src,
+            url: image?.src,
             bigCaption: caption1.value,
             smallCaption: caption2.value
         });
+    }
+
+    validate(saveData) {
+        if (!saveData.url) {
+            return false;
+        }
+
+        if (saveData.smallCaption.length < 2) {
+            return false;
+        }
+
+        if (saveData.bigCaption.length < 2) {
+            return false;
+        }
+
+        return true;
     }
 }
 

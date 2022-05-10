@@ -58,3 +58,31 @@ p {
 .gallery__image {
     width: 48%;
 }
+
+.side-block__wrapper {
+    display: flex;
+}
+
+.side-block__text {
+    width: 67%;
+}
+.side-block__side {
+    width: 27%;
+}
+
+.side-block__side-text {
+    color: #007bff;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.side-block__side-list li {
+    color: #007bff;
+}
+
+.side-block__side-list p {
+    color: black;
+}

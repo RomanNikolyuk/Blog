@@ -13,7 +13,9 @@ trait EditorJsBlocks
     protected function getBlockHTML(object $block): string
     {
         return match ($block->type) {
+            'paragraph' => $this->getParagraphHTML($block->data),
             'header' => $this->getHeaderHTML($block->data),
+            'list' => $this->getListHTML($block->data),
             'articlesBlock' => $this->getArticlesBlockHTML($block->data),
             'image' => $this->getImageHTML($block->data),
             'gallery' => $this->getGalleryHTML($block->data),
@@ -22,11 +24,33 @@ trait EditorJsBlocks
         };
     }
 
+    protected function getParagraphHTML(object $data) : string
+    {
+        return "<p>{$data->text}</p>";
+    }
+
     protected function getHeaderHTML(object $data): string
     {
         return <<<RETURN
             <h$data->level class="header">$data->text</h$data->level>
 RETURN;
+    }
+
+    protected function getListHTML(object $data): string
+    {
+        $generateList = function (array $items) {
+            $listArray = array_map(function (string $item) {
+                return "<li>$item</li>";
+            }, $items);
+
+            return implode('', $listArray);
+        };
+
+        return <<<HTML
+            <ul>
+                {$generateList($data->items)}
+            </ul>
+HTML;
     }
 
     protected function getArticlesBlockHTML(object $data): string
@@ -94,6 +118,27 @@ HTML;
 
     protected function getSideBlockHTML(object $data): string
     {
-        return '';
+        $generateHTMLList = function (array $text) {
+            $htmlArray = array_map(function (string $text) {
+                return <<<HTML
+                    <li><p>$text</p></li>
+HTML;
+
+            }, $text);
+
+            return implode('', $htmlArray);
+        };
+
+        return <<<HTML
+            <div class="side-block__wrapper">
+                <div class="side-block__text">$data->text</div>
+                <div class="side-block__side">
+                    <p class="side-block__side-text">{$data->side->title}</p>
+                    <ul class="side-block__side-list">
+                        {$generateHTMLList($data->side->text)}
+                    </ul>
+                </div>
+            </div>
+HTML;
     }
 }

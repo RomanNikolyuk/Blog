@@ -52,13 +52,13 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
     formData.append('description', JSON.stringify(blocks));
     formData.append('image', imageSrc);
 
-    fetch('/admin/articles', {
+    /*fetch('/admin/articles', {
         method: "POST",
         body: formData,
         headers: {
             'X-CSRF-TOKEN': csrfToken
         }
     })
-        .then(output => window.location.href = '/admin/articles');
+        .then(output => window.location.href = '/admin/articles');*/
 
 });

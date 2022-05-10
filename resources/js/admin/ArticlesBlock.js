@@ -39,6 +39,20 @@ class ArticlesBlock extends AddFieldButton {
         };
     }
 
+    validate(saveData) {
+        if (saveData.title.length < 3) {
+            return false;
+        }
+
+        for (const link of saveData.links) {
+            if (link.length < 3) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     generateLink() {
         const link = document.createElement('input');
         link.classList.add('article-block__link');

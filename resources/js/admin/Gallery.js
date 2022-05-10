@@ -34,9 +34,21 @@ class Gallery extends Photo {
         const output = {
             urls: []
         };
-        images.forEach(image => output.urls.push(image.src));
+        images?.forEach(image => output.urls.push(image.src));
 
         return output;
+    }
+
+    validate(saveData) {
+        if (!saveData) {
+            return false;
+        }
+
+        if (saveData.urls.length < 2) {
+            return false;
+        }
+
+        return true;
     }
 }
 
