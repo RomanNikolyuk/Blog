@@ -18,7 +18,7 @@ class PostSide extends AddFieldButton{
         sideTitle.placeholder = 'Enter Side Title';
         sideTitle.contentEditable = true;
         const sideTextElement = document.createElement('div');
-        sideTextElement.classList.add('post-side__text');
+        sideTextElement.classList.add('post-side__text', 'post-side__side-text');
         sideTextElement.placeholder = 'Side Text';
         sideTextElement.contentEditable = true;
         const plusButton = this.getPlusButton(this.addField);
@@ -46,7 +46,7 @@ class PostSide extends AddFieldButton{
         const primaryText = blockContent.querySelector('.post-side__primary-text');
         const sideTitle = blockContent.querySelector('.post-side__title');
         const sideTexts = [];
-        const sideTextsNodes = blockContent.querySelectorAll('.post-side__text');
+        const sideTextsNodes = blockContent.querySelectorAll('.post-side__side-text');
 
         for (const sideText of sideTextsNodes) {
             sideTexts.push(sideText.innerHTML);

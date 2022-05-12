@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Exceptions\EditorJSException;
 use App\Models\Article;
 use Spatie\Url\Url;
 
@@ -20,7 +21,7 @@ trait EditorJsBlocks
             'image' => $this->getImageHTML($block->data),
             'gallery' => $this->getGalleryHTML($block->data),
             'side' => $this->getSideBlockHTML($block->data),
-            default => throw new \Exception("I don't know how to work with $block->type block")
+            default => throw EditorJSException::blockNotFound($block->type)
         };
     }
 
@@ -60,7 +61,7 @@ HTML;
 
             array_map(function ($link) use (&$html) {
                 $articleId = Url::fromString($link)->getFirstSegment();
-                $articleTitle = Article::findOrFail($articleId)->title;
+                $articleTitle = Article::find($articleId)?->title;
 
                 $html .=
                     <<<HTML
@@ -119,6 +120,7 @@ HTML;
     protected function getSideBlockHTML(object $data): string
     {
         $generateHTMLList = function (array $text) {
+
             $htmlArray = array_map(function (string $text) {
                 return <<<HTML
                     <li><p>$text</p></li>
@@ -128,7 +130,6 @@ HTML;
 
             return implode('', $htmlArray);
         };
-
         return <<<HTML
             <div class="side-block__wrapper">
                 <div class="side-block__text">$data->text</div>

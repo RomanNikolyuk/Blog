@@ -11,6 +11,8 @@ import List from "@editorjs/list";
 import ArticlesBlock from "./ArticlesBlock";
 import Image from "./Image";
 
+const data = document.querySelector('script[data-data]').dataset.data;
+console.log(JSON.parse(data))
 const editorJs = new EditorJS({
     holder: 'description',
     tools: {
@@ -31,34 +33,34 @@ const editorJs = new EditorJS({
             }
         },
         embed: Embed,
+        gallery: Gallery,
+        articlesBlock: ArticlesBlock,
         side: {
             class: PostSide,
             inlineToolbar: true
-        },
-        gallery: Gallery,
-        articlesBlock: ArticlesBlock
+        }
     },
+    data: JSON.parse(data)
 });
 
 
 document.querySelector('#form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const titleValue = document.querySelector('input[name="title"]').value;
-    const {blocks} = await editorJs.save();
+    const data = await editorJs.save();
     const imageSrc = document.querySelector('input[name="image"]').value;
 
     const formData = new FormData;
     formData.append('title', titleValue);
-    formData.append('description', JSON.stringify(blocks));
+    formData.append('description', JSON.stringify(data));
     formData.append('image', imageSrc);
 
-    /*fetch('/admin/articles', {
+    fetch('/admin/articles', {
         method: "POST",
         body: formData,
         headers: {
             'X-CSRF-TOKEN': csrfToken
         }
     })
-        .then(output => window.location.href = '/admin/articles');*/
-
+        .then(output => window.location.href = '/admin/articles');
 });

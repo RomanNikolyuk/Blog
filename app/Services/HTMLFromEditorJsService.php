@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\EditorJSException;
 use App\Traits\EditorJsBlocks;
 
 class HTMLFromEditorJsService
@@ -9,9 +10,16 @@ class HTMLFromEditorJsService
     protected array $blocks;
     use EditorJsBlocks;
 
+    /**
+     * @throws EditorJSException
+     */
     public function __construct(string $editorJsJson)
     {
-        $this->blocks = $this->getJson($editorJsJson);
+        try {
+            $this->blocks = $this->getJson($editorJsJson);
+        } catch (\TypeError $e) {
+            throw EditorJSException::passedString();
+        }
     }
 
     /**

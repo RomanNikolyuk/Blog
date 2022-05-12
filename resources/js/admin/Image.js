@@ -16,7 +16,8 @@ class Image extends Photo {
         super();
 
         this.data = data;
-        this.data = {
+        console.log(data)
+        this.options = {
             url: null,
             smallCaption: null,
             bigCaption: null,
@@ -35,6 +36,7 @@ class Image extends Photo {
         caption2.id = 'caption2';
         caption1.placeholder = 'Enter Big Caption';
         caption2.placeholder = 'Enter Small Caption';
+        caption1.value = '';
         const image = this.generateImage();
 
         const wrapper = document.createElement('div');
@@ -60,7 +62,7 @@ class Image extends Photo {
         button.innerHTML = buttonSettings.icon;
         button.addEventListener('click', () => {
             image.classList.toggle('megaphoto__image');
-            this.data.options.megaphoto = !this.data.options.megaphoto;
+            this.options.options.megaphoto = !this.options.options.megaphoto;
             button.classList.toggle('cdx-settings-button--active');
         });
         wrapper.appendChild(button);
@@ -73,7 +75,7 @@ class Image extends Photo {
         const caption1 = blockContent.querySelector('#caption1');
         const caption2 = blockContent.querySelector('#caption2');
 
-        return Object.assign(this.data, {
+        return Object.assign(this.options, {
             url: image?.src,
             bigCaption: caption1.value,
             smallCaption: caption2.value

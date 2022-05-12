@@ -392,7 +392,8 @@ var Image = /*#__PURE__*/function (_Photo) {
     _defineProperty(_assertThisInitialized(_this), "imageClass", 'simage__image');
 
     _this.data = data;
-    _this.data = {
+    console.log(data);
+    _this.options = {
       url: null,
       smallCaption: null,
       bigCaption: null,
@@ -414,6 +415,7 @@ var Image = /*#__PURE__*/function (_Photo) {
       caption2.id = 'caption2';
       caption1.placeholder = 'Enter Big Caption';
       caption2.placeholder = 'Enter Small Caption';
+      caption1.value = '';
       var image = this.generateImage();
       var wrapper = document.createElement('div');
       wrapper.appendChild(image);
@@ -437,7 +439,7 @@ var Image = /*#__PURE__*/function (_Photo) {
       button.innerHTML = buttonSettings.icon;
       button.addEventListener('click', function () {
         image.classList.toggle('megaphoto__image');
-        _this2.data.options.megaphoto = !_this2.data.options.megaphoto;
+        _this2.options.options.megaphoto = !_this2.options.options.megaphoto;
         button.classList.toggle('cdx-settings-button--active');
       });
       wrapper.appendChild(button);
@@ -449,7 +451,7 @@ var Image = /*#__PURE__*/function (_Photo) {
       var image = blockContent.querySelector('img');
       var caption1 = blockContent.querySelector('#caption1');
       var caption2 = blockContent.querySelector('#caption2');
-      return Object.assign(this.data, {
+      return Object.assign(this.options, {
         url: image === null || image === void 0 ? void 0 : image.src,
         bigCaption: caption1.value,
         smallCaption: caption2.value
@@ -553,7 +555,7 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
       sideTitle.placeholder = 'Enter Side Title';
       sideTitle.contentEditable = true;
       var sideTextElement = document.createElement('div');
-      sideTextElement.classList.add('post-side__text');
+      sideTextElement.classList.add('post-side__text', 'post-side__side-text');
       sideTextElement.placeholder = 'Side Text';
       sideTextElement.contentEditable = true;
       var plusButton = this.getPlusButton(this.addField);
@@ -577,7 +579,7 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
       var primaryText = blockContent.querySelector('.post-side__primary-text');
       var sideTitle = blockContent.querySelector('.post-side__title');
       var sideTexts = [];
-      var sideTextsNodes = blockContent.querySelectorAll('.post-side__text');
+      var sideTextsNodes = blockContent.querySelectorAll('.post-side__side-text');
 
       var _iterator = _createForOfIteratorHelper(sideTextsNodes),
           _step;
@@ -2113,6 +2115,8 @@ var csrfToken = document.querySelector('input[name="_token"]').getAttribute('val
 
 
 
+var data = document.querySelector('script[data-data]').dataset.data;
+console.log(JSON.parse(data));
 var editorJs = new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_1___default())({
   holder: 'description',
   tools: {
@@ -2133,18 +2137,18 @@ var editorJs = new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_1___default())({
       }
     },
     embed: (_editorjs_embed__WEBPACK_IMPORTED_MODULE_2___default()),
+    gallery: _Gallery__WEBPACK_IMPORTED_MODULE_5__["default"],
+    articlesBlock: _ArticlesBlock__WEBPACK_IMPORTED_MODULE_7__["default"],
     side: {
       "class": _PostSide__WEBPACK_IMPORTED_MODULE_3__["default"],
       inlineToolbar: true
-    },
-    gallery: _Gallery__WEBPACK_IMPORTED_MODULE_5__["default"],
-    articlesBlock: _ArticlesBlock__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }
+    }
+  },
+  data: JSON.parse(data)
 });
 document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(event) {
-    var titleValue, _yield$editorJs$save, blocks, imageSrc, formData;
-
+    var titleValue, data, imageSrc, formData;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -2155,21 +2159,21 @@ document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function
             return editorJs.save();
 
           case 4:
-            _yield$editorJs$save = _context.sent;
-            blocks = _yield$editorJs$save.blocks;
+            data = _context.sent;
             imageSrc = document.querySelector('input[name="image"]').value;
             formData = new FormData();
             formData.append('title', titleValue);
-            formData.append('description', JSON.stringify(blocks));
+            formData.append('description', JSON.stringify(data));
             formData.append('image', imageSrc);
-            /*fetch('/admin/articles', {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            })
-                .then(output => window.location.href = '/admin/articles');*/
+            fetch('/admin/articles', {
+              method: "POST",
+              body: formData,
+              headers: {
+                'X-CSRF-TOKEN': csrfToken
+              }
+            }).then(function (output) {
+              return window.location.href = '/admin/articles';
+            });
 
           case 11:
           case "end":

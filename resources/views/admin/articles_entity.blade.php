@@ -107,6 +107,6 @@
         </div>
     </div>
     @section('scripts')
-        <script src="{{ asset('js/articles.js') }}" defer></script>
+        <script src="{{ asset('js/articles.js') }}" defer data-data="{{ $data ?? '' }}"></script>
     @endsection
 </x-app-layout>
