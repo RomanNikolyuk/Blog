@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\EditorJSException;
 use App\Services\HTMLFromEditorJsService;
 use Database\Factories\ArticleFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -43,6 +44,9 @@ class Article extends Model
         );
     }
 
+    /**
+     * @throws EditorJSException
+     */
     protected function getHTMLFromEditorJs(String $description) : String
     {
         return (new HTMLFromEditorJsService($description))->produce();

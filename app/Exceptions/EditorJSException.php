@@ -6,7 +6,7 @@ use Exception;
 
 class EditorJSException extends Exception
 {
-    public static function passedString(): self
+    public static function notJSON(): self
     {
         return new self('Passed String, expected JSON');
     }

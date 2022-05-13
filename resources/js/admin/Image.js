@@ -16,7 +16,7 @@ class Image extends Photo {
         super();
 
         this.data = data;
-        console.log(data)
+
         this.options = {
             url: null,
             smallCaption: null,

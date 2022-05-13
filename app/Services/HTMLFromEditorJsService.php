@@ -15,11 +15,7 @@ class HTMLFromEditorJsService
      */
     public function __construct(string $editorJsJson)
     {
-        try {
-            $this->blocks = $this->getJson($editorJsJson);
-        } catch (\TypeError $e) {
-            throw EditorJSException::passedString();
-        }
+        $this->blocks = $this->getBlocks($editorJsJson);
     }
 
     /**
@@ -34,15 +30,10 @@ class HTMLFromEditorJsService
         return $html;
     }
 
-    protected function getJson(string $json): array
+    protected function getBlocks(string $json)
     {
-        $decoded = json_decode($json);
-
-        if (!is_array($decoded)) {
-            $decoded = $this->getJson($decoded);
-        }
-
-        return $decoded;
+        // TODO: delete supporting old json format
+        return json_decode($json)->blocks;
     }
 
 }

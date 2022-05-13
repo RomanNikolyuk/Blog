@@ -12,7 +12,7 @@ import ArticlesBlock from "./ArticlesBlock";
 import Image from "./Image";
 
 const data = document.querySelector('script[data-data]').dataset.data;
-console.log(JSON.parse(data))
+
 const editorJs = new EditorJS({
     holder: 'description',
     tools: {

@@ -392,7 +392,6 @@ var Image = /*#__PURE__*/function (_Photo) {
     _defineProperty(_assertThisInitialized(_this), "imageClass", 'simage__image');
 
     _this.data = data;
-    console.log(data);
     _this.options = {
       url: null,
       smallCaption: null,
@@ -2116,7 +2115,6 @@ var csrfToken = document.querySelector('input[name="_token"]').getAttribute('val
 
 
 var data = document.querySelector('script[data-data]').dataset.data;
-console.log(JSON.parse(data));
 var editorJs = new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_1___default())({
   holder: 'description',
   tools: {
