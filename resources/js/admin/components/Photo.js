@@ -6,14 +6,23 @@ class Photo {
     generateImage() {
         const container = document.createElement('div');
         container.classList.add(this.containerClass);
+        let child = undefined;
+        
+        if (!this.data) {
+            child = document.createElement('input');
+            child.setAttribute('type', 'file');
+            child.classList.add(this.inputClass);
+            child.addEventListener('change', this.uploadFile.bind(this));
+        }
 
-        const input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.classList.add(this.inputClass);
-        input.addEventListener('change', this.uploadFile.bind(this));
+        if (this.data) {
+            child = document.createElement('img');
+            child.src = this.data.url;
+            child.classList.add(this.imageClass);
+        }
 
-        container.appendChild(input);
-        return this.containerClass ? container : input;
+        container.appendChild(child);
+        return this.containerClass ? container : child;
     }
 
     uploadFile(event) {

@@ -1,6 +1,11 @@
 import AddFieldButton from "./components/AddFieldButton";
 
-class PostSide extends AddFieldButton{
+class PostSide extends AddFieldButton {
+    constructor({data}) {
+        super();
+
+        this.data = data;
+    }
     static get toolbox() {
         return {
             title: 'Side',
@@ -12,15 +17,20 @@ class PostSide extends AddFieldButton{
         const primaryText = document.createElement('div');
         primaryText.classList.add('post-side__primary-text', 'post-side__text');
         primaryText.contentEditable = true;
+        primaryText.innerHTML = this.data.text ?? '';
 
         const sideTitle = document.createElement('div');
         sideTitle.classList.add('post-side__title');
         sideTitle.placeholder = 'Enter Side Title';
         sideTitle.contentEditable = true;
+        sideTitle.innerHTML = this.data.side.title ?? '';
+
         const sideTextElement = document.createElement('div');
         sideTextElement.classList.add('post-side__text', 'post-side__side-text');
         sideTextElement.placeholder = 'Side Text';
         sideTextElement.contentEditable = true;
+        // TODO: fill side text elements
+
         const plusButton = this.getPlusButton(this.addField);
 
         const primaryTextWrapper = document.createElement('div');
@@ -74,12 +84,13 @@ class PostSide extends AddFieldButton{
     }
 
     addField() {
+        const wrapper = document.querySelector('.post-side__side-wrapper');
         const newTextField = document.createElement('div');
         newTextField.classList.add('post-side__text');
         newTextField.placeholder = 'Side Text';
         newTextField.contentEditable = true;
 
-        this.wrapper.appendChild(newTextField);
+        wrapper.appendChild(newTextField);
     }
 }
 

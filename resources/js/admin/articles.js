@@ -40,7 +40,7 @@ const editorJs = new EditorJS({
             inlineToolbar: true
         }
     },
-    data: JSON.parse(data)
+    data: JSON.parse(data.length ? data : '{}')
 });
 
 

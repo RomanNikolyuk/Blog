@@ -111,30 +111,33 @@ var ArticlesBlock = /*#__PURE__*/function (_AddFieldButton) {
 
   var _super = _createSuper(ArticlesBlock);
 
-  function ArticlesBlock() {
+  function ArticlesBlock(_ref) {
     var _this;
+
+    var data = _ref.data;
 
     _classCallCheck(this, ArticlesBlock);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
+    _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "wrapper", document.createElement('div'));
 
     _defineProperty(_assertThisInitialized(_this), "count", 1);
 
+    _this.data = data;
     return _this;
   }
 
   _createClass(ArticlesBlock, [{
     key: "render",
     value: function render() {
+      var _this$data$title;
+
       var title = document.createElement('input');
       title.classList.add('article-block__title');
       title.placeholder = 'Read Also or You will be interested';
+      title.value = (_this$data$title = this.data.title) !== null && _this$data$title !== void 0 ? _this$data$title : ''; // TODO: fill links elements
+
       var link = this.generateLink();
       this.wrapper.classList.add('article-block__wrapper');
       var plusButton = this.getPlusButton(this.addField);
@@ -537,26 +540,37 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
 
   var _super = _createSuper(PostSide);
 
-  function PostSide() {
+  function PostSide(_ref) {
+    var _this;
+
+    var data = _ref.data;
+
     _classCallCheck(this, PostSide);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this);
+    _this.data = data;
+    return _this;
   }
 
   _createClass(PostSide, [{
     key: "render",
     value: function render() {
+      var _this$data$text, _this$data$side$title;
+
       var primaryText = document.createElement('div');
       primaryText.classList.add('post-side__primary-text', 'post-side__text');
       primaryText.contentEditable = true;
+      primaryText.innerHTML = (_this$data$text = this.data.text) !== null && _this$data$text !== void 0 ? _this$data$text : '';
       var sideTitle = document.createElement('div');
       sideTitle.classList.add('post-side__title');
       sideTitle.placeholder = 'Enter Side Title';
       sideTitle.contentEditable = true;
+      sideTitle.innerHTML = (_this$data$side$title = this.data.side.title) !== null && _this$data$side$title !== void 0 ? _this$data$side$title : '';
       var sideTextElement = document.createElement('div');
       sideTextElement.classList.add('post-side__text', 'post-side__side-text');
       sideTextElement.placeholder = 'Side Text';
-      sideTextElement.contentEditable = true;
+      sideTextElement.contentEditable = true; // TODO: fill side text elements
+
       var plusButton = this.getPlusButton(this.addField);
       var primaryTextWrapper = document.createElement('div');
       primaryTextWrapper.classList.add('post-side__primary-text-wrapper');
@@ -618,11 +632,12 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
   }, {
     key: "addField",
     value: function addField() {
+      var wrapper = document.querySelector('.post-side__side-wrapper');
       var newTextField = document.createElement('div');
       newTextField.classList.add('post-side__text');
       newTextField.placeholder = 'Side Text';
       newTextField.contentEditable = true;
-      this.wrapper.appendChild(newTextField);
+      wrapper.appendChild(newTextField);
     }
   }], [{
     key: "toolbox",
@@ -727,12 +742,23 @@ var Photo = /*#__PURE__*/function () {
     value: function generateImage() {
       var container = document.createElement('div');
       container.classList.add(this.containerClass);
-      var input = document.createElement('input');
-      input.setAttribute('type', 'file');
-      input.classList.add(this.inputClass);
-      input.addEventListener('change', this.uploadFile.bind(this));
-      container.appendChild(input);
-      return this.containerClass ? container : input;
+      var child = undefined;
+
+      if (!this.data) {
+        child = document.createElement('input');
+        child.setAttribute('type', 'file');
+        child.classList.add(this.inputClass);
+        child.addEventListener('change', this.uploadFile.bind(this));
+      }
+
+      if (this.data) {
+        child = document.createElement('img');
+        child.src = this.data.url;
+        child.classList.add(this.imageClass);
+      }
+
+      container.appendChild(child);
+      return this.containerClass ? container : child;
     }
   }, {
     key: "uploadFile",
@@ -2142,7 +2168,7 @@ var editorJs = new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_1___default())({
       inlineToolbar: true
     }
   },
-  data: JSON.parse(data)
+  data: JSON.parse(data.length ? data : '{}')
 });
 document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(event) {

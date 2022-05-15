@@ -3,6 +3,12 @@ import AddFieldButton from "./components/AddFieldButton";
 class ArticlesBlock extends AddFieldButton {
     wrapper = document.createElement('div');
     count = 1;
+
+    constructor({data}) {
+        super();
+
+        this.data = data;
+    }
     static get toolbox() {
         return {
             title: 'Articles block',
@@ -14,10 +20,11 @@ class ArticlesBlock extends AddFieldButton {
         const title = document.createElement('input');
         title.classList.add('article-block__title');
         title.placeholder = 'Read Also or You will be interested';
+        title.value = this.data.title ?? '';
 
+        // TODO: fill links elements
         const link = this.generateLink();
         this.wrapper.classList.add('article-block__wrapper');
-
         const plusButton = this.getPlusButton(this.addField);
 
         this.wrapper.appendChild(title);
