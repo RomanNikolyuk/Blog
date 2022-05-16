@@ -36,7 +36,8 @@ class Image extends Photo {
         caption2.id = 'caption2';
         caption1.placeholder = 'Enter Big Caption';
         caption2.placeholder = 'Enter Small Caption';
-        caption1.value = '';
+        caption1.value = this.data.bigCaption ?? '';
+        caption2.value = this.data.smallCaption ?? '';
         const image = this.generateImage();
 
         const wrapper = document.createElement('div');

@@ -58,10 +58,8 @@
 
 .gallery__image {
     transition: .1s ease-in;
-}
-
-.gallery__image {
     border: 1px solid #007bff;
+    width: 230px;
 }
 
 .gallery__remove-icon {

@@ -1,4 +1,5 @@
 import removeImg from "../../../images/icons8-remove-32.png";
+import _ from "lodash";
 
 class Photo {
     csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
@@ -7,15 +8,15 @@ class Photo {
         const container = document.createElement('div');
         container.classList.add(this.containerClass);
         let child = undefined;
-        
-        if (!this.data) {
+
+        if (_.isEmpty(this.data)) {
             child = document.createElement('input');
             child.setAttribute('type', 'file');
             child.classList.add(this.inputClass);
             child.addEventListener('change', this.uploadFile.bind(this));
         }
 
-        if (this.data) {
+        if (!_.isEmpty(this.data)) {
             child = document.createElement('img');
             child.src = this.data.url;
             child.classList.add(this.imageClass);
