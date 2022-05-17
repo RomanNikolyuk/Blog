@@ -4,7 +4,7 @@ import MIcon from "../../images/icons8-m-50.png";
 class Image extends Photo {
     inputClass = 'simage__input';
     imageClass = 'simage__image';
-
+    megaphoto = false;
     static get toolbox() {
         return {
             title: 'Image',
@@ -16,18 +16,10 @@ class Image extends Photo {
         super();
 
         this.data = data;
-
-        this.options = {
-            url: null,
-            smallCaption: null,
-            bigCaption: null,
-            options: {
-                megaphoto: false
-            }
-        }
     }
 
     render() {
+        const image = this.generateImage();
         const caption1 = document.createElement('input');
         const caption2 = document.createElement('input');
         caption1.classList.add('simage__caption');
@@ -38,7 +30,6 @@ class Image extends Photo {
         caption2.placeholder = 'Enter Small Caption';
         caption1.value = this.data.bigCaption ?? '';
         caption2.value = this.data.smallCaption ?? '';
-        const image = this.generateImage();
 
         const wrapper = document.createElement('div');
         wrapper.appendChild(image);
@@ -63,7 +54,7 @@ class Image extends Photo {
         button.innerHTML = buttonSettings.icon;
         button.addEventListener('click', () => {
             image.classList.toggle('megaphoto__image');
-            this.options.options.megaphoto = !this.options.options.megaphoto;
+            this.megaphoto = !this.megaphoto;
             button.classList.toggle('cdx-settings-button--active');
         });
         wrapper.appendChild(button);
@@ -76,11 +67,14 @@ class Image extends Photo {
         const caption1 = blockContent.querySelector('#caption1');
         const caption2 = blockContent.querySelector('#caption2');
 
-        return Object.assign(this.options, {
-            url: image?.src,
+        return {
+            url: image.src,
             bigCaption: caption1.value,
-            smallCaption: caption2.value
-        });
+            smallCaption: caption2.value,
+            options: {
+                megaphoto: this.megaphoto
+            }
+        };
     }
 
     validate(saveData) {

@@ -88,11 +88,13 @@ class ArticleController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        $isSaved = $article->fill($request->validated())->save();
+
+        return ['success' => $isSaved];
     }
 
     /**

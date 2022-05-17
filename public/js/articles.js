@@ -125,8 +125,6 @@ var ArticlesBlock = /*#__PURE__*/function (_AddFieldButton) {
 
     _defineProperty(_assertThisInitialized(_this), "wrapper", document.createElement('div'));
 
-    _defineProperty(_assertThisInitialized(_this), "count", 1);
-
     _this.data = data;
     return _this;
   }
@@ -137,27 +135,17 @@ var ArticlesBlock = /*#__PURE__*/function (_AddFieldButton) {
       var _this$data$title,
           _this2 = this;
 
+      var plusButton = this.getPlusButton(this.addField);
       var title = document.createElement('input');
+      var links = this.generateLinks();
       title.classList.add('article-block__title');
       title.placeholder = 'Read Also or You will be interested';
-      title.value = (_this$data$title = this.data.title) !== null && _this$data$title !== void 0 ? _this$data$title : ''; // TODO: fill links elements
-
-      if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
-        var _link = this.generateLink();
-      }
-
-      var links = [];
-
-      if (!lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
-        this.links.forEach(function (url) {
-          return links.push(_this2.generateLink(url));
-        });
-      }
-
+      title.value = (_this$data$title = this.data.title) !== null && _this$data$title !== void 0 ? _this$data$title : '';
       this.wrapper.classList.add('article-block__wrapper');
-      var plusButton = this.getPlusButton(this.addField);
       this.wrapper.appendChild(title);
-      this.wrapper.appendChild(link);
+      links.forEach(function (linkNode) {
+        return _this2.wrapper.appendChild(linkNode);
+      });
       this.wrapper.appendChild(plusButton);
       return this.wrapper;
     }
@@ -187,9 +175,9 @@ var ArticlesBlock = /*#__PURE__*/function (_AddFieldButton) {
 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var _link2 = _step.value;
+          var link = _step.value;
 
-          if (_link2.length < 3) {
+          if (link.length < 3) {
             return false;
           }
         }
@@ -202,19 +190,31 @@ var ArticlesBlock = /*#__PURE__*/function (_AddFieldButton) {
       return true;
     }
   }, {
-    key: "generateLink",
-    value: function generateLink() {
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var link = document.createElement('input');
-      link.classList.add('article-block__link');
-      link.placeholder = "http://127.0.0.1:8000/".concat(this.count++);
-      link.value = url;
-      return link;
+    key: "generateLinks",
+    value: function generateLinks() {
+      function generateLink() {
+        var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var link = document.createElement('input');
+        link.classList.add('article-block__link');
+        link.placeholder = "http://127.0.0.1:8000/1";
+        link.value = url;
+        return link;
+      }
+
+      if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+        return [generateLink()];
+      }
+
+      var links = [];
+      this.data.links.forEach(function (url) {
+        return links.push(generateLink(url));
+      });
+      return links;
     }
   }, {
     key: "addField",
     value: function addField() {
-      this.wrapper.appendChild(this.generateLink());
+      this.wrapper.appendChild(this.generateLinks()[0]);
     }
   }], [{
     key: "toolbox",
@@ -250,6 +250,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -270,11 +282,19 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
 
 
+
+
+var _generateImages = /*#__PURE__*/new WeakSet();
 
 var Gallery = /*#__PURE__*/function (_Photo) {
   _inherits(Gallery, _Photo);
@@ -289,6 +309,8 @@ var Gallery = /*#__PURE__*/function (_Photo) {
     _classCallCheck(this, Gallery);
 
     _this = _super.call(this);
+
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generateImages);
 
     _defineProperty(_assertThisInitialized(_this), "inputClass", 'gallery__input');
 
@@ -305,25 +327,14 @@ var Gallery = /*#__PURE__*/function (_Photo) {
     value: function render() {
       var wrapper = document.createElement('div');
       wrapper.classList.add('gallery__wrapper');
-      var container1 = undefined;
-      var container2 = undefined;
 
-      if (lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data.urls)) {
-        container1 = this.generateImage();
-        container2 = this.generateImage();
-      }
+      var _classPrivateMethodGe = _classPrivateMethodGet(this, _generateImages, _generateImages2).call(this),
+          _classPrivateMethodGe2 = _slicedToArray(_classPrivateMethodGe, 2),
+          container1 = _classPrivateMethodGe2[0],
+          container2 = _classPrivateMethodGe2[1];
 
-      if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data.urls)) {
-        container1 = document.createElement('img');
-        container2 = document.createElement('img');
-        container1.src = this.data.urls[0];
-        container2.src = this.data.urls[1];
-        container1.classList.add(this.imageClass);
-        container2.classList.add(this.imageClass);
-      }
-
-      var input = document.createElement('input');
-      input.classList.add('gallery__caption');
+      var imageCaption = document.createElement('input');
+      imageCaption.classList.add('gallery__caption');
       wrapper.appendChild(container1);
       wrapper.appendChild(container2);
       return wrapper;
@@ -365,6 +376,27 @@ var Gallery = /*#__PURE__*/function (_Photo) {
 
   return Gallery;
 }(_components_Photo__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+function _generateImages2() {
+  var container1 = undefined;
+  var container2 = undefined;
+
+  if (lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data.urls)) {
+    container1 = this.generateImage();
+    container2 = this.generateImage();
+  }
+
+  if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data.urls)) {
+    container1 = document.createElement('img');
+    container2 = document.createElement('img');
+    container1.src = this.data.urls[0];
+    container2.src = this.data.urls[1];
+    container1.classList.add(this.imageClass);
+    container2.classList.add(this.imageClass);
+  }
+
+  return [container1, container2];
+}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Gallery);
 
@@ -428,15 +460,9 @@ var Image = /*#__PURE__*/function (_Photo) {
 
     _defineProperty(_assertThisInitialized(_this), "imageClass", 'simage__image');
 
+    _defineProperty(_assertThisInitialized(_this), "megaphoto", false);
+
     _this.data = data;
-    _this.options = {
-      url: null,
-      smallCaption: null,
-      bigCaption: null,
-      options: {
-        megaphoto: false
-      }
-    };
     return _this;
   }
 
@@ -445,6 +471,7 @@ var Image = /*#__PURE__*/function (_Photo) {
     value: function render() {
       var _this$data$bigCaption, _this$data$smallCapti;
 
+      var image = this.generateImage();
       var caption1 = document.createElement('input');
       var caption2 = document.createElement('input');
       caption1.classList.add('simage__caption');
@@ -455,7 +482,6 @@ var Image = /*#__PURE__*/function (_Photo) {
       caption2.placeholder = 'Enter Small Caption';
       caption1.value = (_this$data$bigCaption = this.data.bigCaption) !== null && _this$data$bigCaption !== void 0 ? _this$data$bigCaption : '';
       caption2.value = (_this$data$smallCapti = this.data.smallCaption) !== null && _this$data$smallCapti !== void 0 ? _this$data$smallCapti : '';
-      var image = this.generateImage();
       var wrapper = document.createElement('div');
       wrapper.appendChild(image);
       wrapper.appendChild(caption1);
@@ -478,7 +504,7 @@ var Image = /*#__PURE__*/function (_Photo) {
       button.innerHTML = buttonSettings.icon;
       button.addEventListener('click', function () {
         image.classList.toggle('megaphoto__image');
-        _this2.options.options.megaphoto = !_this2.options.options.megaphoto;
+        _this2.megaphoto = !_this2.megaphoto;
         button.classList.toggle('cdx-settings-button--active');
       });
       wrapper.appendChild(button);
@@ -490,11 +516,14 @@ var Image = /*#__PURE__*/function (_Photo) {
       var image = blockContent.querySelector('img');
       var caption1 = blockContent.querySelector('#caption1');
       var caption2 = blockContent.querySelector('#caption2');
-      return Object.assign(this.options, {
-        url: image === null || image === void 0 ? void 0 : image.src,
+      return {
+        url: image.src,
         bigCaption: caption1.value,
-        smallCaption: caption2.value
-      });
+        smallCaption: caption2.value,
+        options: {
+          megaphoto: this.megaphoto
+        }
+      };
     }
   }, {
     key: "validate",
@@ -542,6 +571,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_AddFieldButton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/AddFieldButton */ "./resources/js/admin/components/AddFieldButton.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -572,6 +603,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var PostSide = /*#__PURE__*/function (_AddFieldButton) {
   _inherits(PostSide, _AddFieldButton);
 
@@ -586,42 +618,93 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
 
     _this = _super.call(this);
     _this.data = data;
+    _this.wrapper = document.createElement('div');
+
+    _this.wrapper.classList.add('post-side__container');
+
     return _this;
   }
 
   _createClass(PostSide, [{
     key: "render",
     value: function render() {
-      var _this$data$text, _this$data$side$title;
+      var primaryText = this.generatePrimaryText();
+      var primaryTextWrapper = this.generatePrimaryTextWrapper(primaryText);
+      var sideTitle = this.generateSideTitle();
+      var sideTexts = this.generateSideTextElement();
+      var plusButton = this.getPlusButton(this.addField);
+      var sideWrapper = this.generateSideWrapper(sideTitle, sideTexts, plusButton);
+      this.wrapper.appendChild(primaryTextWrapper);
+      this.wrapper.appendChild(sideWrapper);
+      return this.wrapper;
+    }
+  }, {
+    key: "generatePrimaryText",
+    value: function generatePrimaryText() {
+      var _this$data$text;
 
       var primaryText = document.createElement('div');
       primaryText.classList.add('post-side__primary-text', 'post-side__text');
       primaryText.contentEditable = true;
       primaryText.innerHTML = (_this$data$text = this.data.text) !== null && _this$data$text !== void 0 ? _this$data$text : '';
+      return primaryText;
+    }
+  }, {
+    key: "generateSideTitle",
+    value: function generateSideTitle() {
+      var _this$data$side$title;
+
       var sideTitle = document.createElement('div');
       sideTitle.classList.add('post-side__title');
       sideTitle.placeholder = 'Enter Side Title';
       sideTitle.contentEditable = true;
       sideTitle.innerHTML = (_this$data$side$title = this.data.side.title) !== null && _this$data$side$title !== void 0 ? _this$data$side$title : '';
-      var sideTextElement = document.createElement('div');
-      sideTextElement.classList.add('post-side__text', 'post-side__side-text');
-      sideTextElement.placeholder = 'Side Text';
-      sideTextElement.contentEditable = true; // TODO: fill side text elements
+      return sideTitle;
+    }
+  }, {
+    key: "generateSideTextElement",
+    value: function generateSideTextElement() {
+      function generateTextElement() {
+        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var sideTextElement = document.createElement('div');
+        sideTextElement.classList.add('post-side__text', 'post-side__side-text');
+        sideTextElement.placeholder = 'Side Text';
+        sideTextElement.contentEditable = true;
+        sideTextElement.innerHTML = text;
+        return sideTextElement;
+      }
 
-      var plusButton = this.getPlusButton(this.addField);
+      if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+        return [generateTextElement()];
+      }
+
+      if (!lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+        var texts = [];
+        this.data.side.text.forEach(function (element) {
+          return texts.push(generateTextElement(element));
+        });
+        return texts;
+      }
+    }
+  }, {
+    key: "generatePrimaryTextWrapper",
+    value: function generatePrimaryTextWrapper(primaryText) {
       var primaryTextWrapper = document.createElement('div');
       primaryTextWrapper.classList.add('post-side__primary-text-wrapper');
       primaryTextWrapper.appendChild(primaryText);
+      return primaryTextWrapper;
+    }
+  }, {
+    key: "generateSideWrapper",
+    value: function generateSideWrapper(sideTitle, sideTexts, plusButton) {
       var sideWrapper = document.createElement('div');
       sideWrapper.classList.add('post-side__side-wrapper');
       sideWrapper.appendChild(sideTitle);
-      sideWrapper.appendChild(sideTextElement);
+      sideTexts.forEach(function (text) {
+        return sideWrapper.appendChild(text);
+      });
       sideWrapper.appendChild(plusButton);
-      this.wrapper = document.createElement('div');
-      this.wrapper.classList.add('post-side__container');
-      this.wrapper.appendChild(primaryTextWrapper);
-      this.wrapper.appendChild(sideWrapper);
-      return this.wrapper;
+      return sideWrapper;
     }
   }, {
     key: "save",

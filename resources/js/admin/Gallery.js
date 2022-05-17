@@ -23,8 +23,22 @@ class Gallery extends Photo {
     render() {
         const wrapper = document.createElement('div');
         wrapper.classList.add('gallery__wrapper');
+
+        const [container1, container2] = this.#generateImages();
+
+        const imageCaption = document.createElement('input');
+        imageCaption.classList.add('gallery__caption');
+
+        wrapper.appendChild(container1);
+        wrapper.appendChild(container2);
+
+        return wrapper;
+    }
+
+    #generateImages() {
         let container1 = undefined;
         let container2 = undefined;
+
         if (_.isEmpty(this.data.urls)) {
             container1 = this.generateImage();
             container2 = this.generateImage();
@@ -39,13 +53,7 @@ class Gallery extends Photo {
             container2.classList.add(this.imageClass);
         }
 
-        const input = document.createElement('input');
-        input.classList.add('gallery__caption');
-
-        wrapper.appendChild(container1);
-        wrapper.appendChild(container2);
-
-        return wrapper;
+        return [container1, container2];
     }
 
     save(blockContent) {

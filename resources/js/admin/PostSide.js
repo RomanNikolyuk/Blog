@@ -1,10 +1,13 @@
 import AddFieldButton from "./components/AddFieldButton";
+import _ from "lodash";
 
 class PostSide extends AddFieldButton {
     constructor({data}) {
         super();
 
         this.data = data;
+        this.wrapper = document.createElement('div');
+        this.wrapper.classList.add('post-side__container');
     }
     static get toolbox() {
         return {
@@ -14,42 +17,83 @@ class PostSide extends AddFieldButton {
     }
 
     render() {
+        const primaryText = this.generatePrimaryText();
+        const primaryTextWrapper = this.generatePrimaryTextWrapper(primaryText);
+        const sideTitle = this.generateSideTitle();
+        const sideTexts = this.generateSideTextElement();
+        const plusButton = this.getPlusButton(this.addField);
+        const sideWrapper = this.generateSideWrapper(sideTitle, sideTexts, plusButton);
+
+        this.wrapper.appendChild(primaryTextWrapper);
+        this.wrapper.appendChild(sideWrapper);
+
+        return this.wrapper;
+    }
+
+    generatePrimaryText() {
         const primaryText = document.createElement('div');
+
         primaryText.classList.add('post-side__primary-text', 'post-side__text');
         primaryText.contentEditable = true;
         primaryText.innerHTML = this.data.text ?? '';
 
+        return primaryText;
+    }
+
+    generateSideTitle() {
         const sideTitle = document.createElement('div');
+
         sideTitle.classList.add('post-side__title');
         sideTitle.placeholder = 'Enter Side Title';
         sideTitle.contentEditable = true;
         sideTitle.innerHTML = this.data.side.title ?? '';
 
-        const sideTextElement = document.createElement('div');
-        sideTextElement.classList.add('post-side__text', 'post-side__side-text');
-        sideTextElement.placeholder = 'Side Text';
-        sideTextElement.contentEditable = true;
-        // TODO: fill side text elements
+        return sideTitle;
+    }
 
-        const plusButton = this.getPlusButton(this.addField);
+    generateSideTextElement() {
+        function generateTextElement(text = '') {
+            const sideTextElement = document.createElement('div');
 
+            sideTextElement.classList.add('post-side__text', 'post-side__side-text');
+            sideTextElement.placeholder = 'Side Text';
+            sideTextElement.contentEditable = true;
+            sideTextElement.innerHTML = text;
+
+            return sideTextElement;
+        }
+
+        if (_.isEmpty(this.data)) {
+            return [generateTextElement()];
+        }
+
+        if (!_.isEmpty(this.data)) {
+            const texts = [];
+
+            this.data.side.text.forEach(element => texts.push(generateTextElement(element)));
+
+            return texts;
+        }
+    }
+
+    generatePrimaryTextWrapper(primaryText) {
         const primaryTextWrapper = document.createElement('div');
+
         primaryTextWrapper.classList.add('post-side__primary-text-wrapper')
         primaryTextWrapper.appendChild(primaryText);
 
-        const sideWrapper = document.createElement('div');
-        sideWrapper.classList.add('post-side__side-wrapper');
+        return primaryTextWrapper;
+    }
 
+    generateSideWrapper(sideTitle, sideTexts, plusButton) {
+        const sideWrapper = document.createElement('div');
+
+        sideWrapper.classList.add('post-side__side-wrapper');
         sideWrapper.appendChild(sideTitle);
-        sideWrapper.appendChild(sideTextElement);
+        sideTexts.forEach(text => sideWrapper.appendChild(text));
         sideWrapper.appendChild(plusButton);
 
-        this.wrapper = document.createElement('div');
-        this.wrapper.classList.add('post-side__container');
-        this.wrapper.appendChild(primaryTextWrapper);
-        this.wrapper.appendChild(sideWrapper);
-
-        return this.wrapper;
+        return sideWrapper;
     }
 
     save(blockContent) {

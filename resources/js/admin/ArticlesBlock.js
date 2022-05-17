@@ -3,7 +3,6 @@ import _ from "lodash";
 
 class ArticlesBlock extends AddFieldButton {
     wrapper = document.createElement('div');
-    count = 1;
 
     constructor({data}) {
         super();
@@ -18,24 +17,18 @@ class ArticlesBlock extends AddFieldButton {
     }
 
     render() {
+        const plusButton = this.getPlusButton(this.addField);
         const title = document.createElement('input');
+        const links = this.generateLinks();
+
         title.classList.add('article-block__title');
         title.placeholder = 'Read Also or You will be interested';
         title.value = this.data.title ?? '';
 
-        // TODO: fill links elements
-        if (_.isEmpty(this.data)) {
-            const link = this.generateLink();
-        }
-        const links = [];
-        if (!_.isEmpty(this.data)) {
-            this.links.forEach(url => links.push(this.generateLink(url)))
-        }
         this.wrapper.classList.add('article-block__wrapper');
-        const plusButton = this.getPlusButton(this.addField);
 
         this.wrapper.appendChild(title);
-        this.wrapper.appendChild(link);
+        links.forEach(linkNode => this.wrapper.appendChild(linkNode));
         this.wrapper.appendChild(plusButton);
 
         return this.wrapper;
@@ -67,17 +60,30 @@ class ArticlesBlock extends AddFieldButton {
         return true;
     }
 
-    generateLink(url = '') {
-        const link = document.createElement('input');
-        link.classList.add('article-block__link');
-        link.placeholder = `http://127.0.0.1:8000/${this.count++}`;
-        link.value = url;
+    generateLinks() {
+        function generateLink(url = '') {
+            const link = document.createElement('input');
 
-        return link;
+            link.classList.add('article-block__link');
+            link.placeholder = `http://127.0.0.1:8000/1`;
+            link.value = url;
+
+            return link;
+        }
+
+        if (_.isEmpty(this.data)) {
+            return [generateLink()];
+        }
+
+        const links = [];
+
+        this.data.links.forEach(url => links.push(generateLink(url)))
+
+        return links;
     }
 
     addField() {
-        this.wrapper.appendChild(this.generateLink());
+        this.wrapper.appendChild(this.generateLinks()[0]);
     }
 }
 
