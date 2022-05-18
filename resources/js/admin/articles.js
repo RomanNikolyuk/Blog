@@ -11,7 +11,8 @@ import List from "@editorjs/list";
 import ArticlesBlock from "./ArticlesBlock";
 import Image from "./Image";
 
-const data = document.querySelector('script[data-data]').dataset.data;
+const fillData = document.querySelector('script[data-data]').dataset.data;
+const articleId = document.querySelector('script[data-id]').dataset.id;
 
 const editorJs = new EditorJS({
     holder: 'description',
@@ -40,12 +41,15 @@ const editorJs = new EditorJS({
             inlineToolbar: true
         }
     },
-    data: JSON.parse(data.length ? data : '{}')
+    data: JSON.parse(fillData.length ? fillData : '{}')
 });
 
 
 document.querySelector('#form').addEventListener('submit', async (event) => {
     event.preventDefault();
+    const fetchUri = fillData.length ? '/admin/articles/' + articleId : '/admin/articles';
+    const fetchMethod = fillData.length ? 'PUT' : 'POST';
+
     const titleValue = document.querySelector('input[name="title"]').value;
     const data = await editorJs.save();
     const imageSrc = document.querySelector('input[name="image"]').value;
@@ -54,9 +58,10 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
     formData.append('title', titleValue);
     formData.append('description', JSON.stringify(data));
     formData.append('image', imageSrc);
+    formData.append('_method', fetchMethod);
 
-    fetch('/admin/articles', {
-        method: "POST",
+    fetch(fetchUri, {
+        method: 'POST',
         body: formData,
         headers: {
             'X-CSRF-TOKEN': csrfToken

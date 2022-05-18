@@ -19499,7 +19499,8 @@ var csrfToken = document.querySelector('input[name="_token"]').getAttribute('val
 
 
 
-var data = document.querySelector('script[data-data]').dataset.data;
+var fillData = document.querySelector('script[data-data]').dataset.data;
+var articleId = document.querySelector('script[data-id]').dataset.id;
 var editorJs = new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_1___default())({
   holder: 'description',
   tools: {
@@ -19527,29 +19528,32 @@ var editorJs = new (_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_1___default())({
       inlineToolbar: true
     }
   },
-  data: JSON.parse(data.length ? data : '{}')
+  data: JSON.parse(fillData.length ? fillData : '{}')
 });
 document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(event) {
-    var titleValue, data, imageSrc, formData;
+    var fetchUri, fetchMethod, titleValue, data, imageSrc, formData;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             event.preventDefault();
+            fetchUri = fillData.length ? '/admin/articles/' + articleId : '/admin/articles';
+            fetchMethod = fillData.length ? 'PUT' : 'POST';
             titleValue = document.querySelector('input[name="title"]').value;
-            _context.next = 4;
+            _context.next = 6;
             return editorJs.save();
 
-          case 4:
+          case 6:
             data = _context.sent;
             imageSrc = document.querySelector('input[name="image"]').value;
             formData = new FormData();
             formData.append('title', titleValue);
             formData.append('description', JSON.stringify(data));
             formData.append('image', imageSrc);
-            fetch('/admin/articles', {
-              method: "POST",
+            formData.append('_method', fetchMethod);
+            fetch(fetchUri, {
+              method: 'POST',
               body: formData,
               headers: {
                 'X-CSRF-TOKEN': csrfToken
@@ -19558,7 +19562,7 @@ document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function
               return window.location.href = '/admin/articles';
             });
 
-          case 11:
+          case 14:
           case "end":
             return _context.stop();
         }

@@ -79,8 +79,8 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         // Getting Attribute without accessor
-        $data = $article->getAttributes()['description'];
-        return view('admin.articles_entity', compact('data'));
+        $article->rawDescription = $article->getAttributes()['description'];
+        return view('admin.articles_entity', compact('article'));
     }
 
     /**
