@@ -82,10 +82,6 @@ class Image extends Photo {
             return false;
         }
 
-        if (saveData.smallCaption.length < 2) {
-            return false;
-        }
-
         if (saveData.bigCaption.length < 2) {
             return false;
         }

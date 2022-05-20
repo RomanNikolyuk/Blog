@@ -532,10 +532,6 @@ var Image = /*#__PURE__*/function (_Photo) {
         return false;
       }
 
-      if (saveData.smallCaption.length < 2) {
-        return false;
-      }
-
       if (saveData.bigCaption.length < 2) {
         return false;
       }
@@ -577,7 +573,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -601,6 +605,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -617,6 +623,11 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
     _classCallCheck(this, PostSide);
 
     _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "primaryTextClasses", ['post-side__primary-text', 'post-side__text']);
+
+    _defineProperty(_assertThisInitialized(_this), "sideTextClasses", ['post-side__text', 'post-side__side-text']);
+
     _this.data = data;
     _this.wrapper = document.createElement('div');
 
@@ -641,10 +652,12 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
   }, {
     key: "generatePrimaryText",
     value: function generatePrimaryText() {
-      var _this$data$text;
+      var _primaryText$classLis, _this$data$text;
 
       var primaryText = document.createElement('div');
-      primaryText.classList.add('post-side__primary-text', 'post-side__text');
+
+      (_primaryText$classLis = primaryText.classList).add.apply(_primaryText$classLis, _toConsumableArray(this.primaryTextClasses));
+
       primaryText.contentEditable = true;
       primaryText.innerHTML = (_this$data$text = this.data.text) !== null && _this$data$text !== void 0 ? _this$data$text : '';
       return primaryText;
@@ -652,27 +665,33 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
   }, {
     key: "generateSideTitle",
     value: function generateSideTitle() {
-      var _this$data$side$title;
+      var _this$data$side$title, _this$data$side;
 
       var sideTitle = document.createElement('div');
       sideTitle.classList.add('post-side__title');
       sideTitle.placeholder = 'Enter Side Title';
       sideTitle.contentEditable = true;
-      sideTitle.innerHTML = (_this$data$side$title = this.data.side.title) !== null && _this$data$side$title !== void 0 ? _this$data$side$title : '';
+      sideTitle.innerHTML = (_this$data$side$title = (_this$data$side = this.data.side) === null || _this$data$side === void 0 ? void 0 : _this$data$side.title) !== null && _this$data$side$title !== void 0 ? _this$data$side$title : '';
       return sideTitle;
     }
   }, {
     key: "generateSideTextElement",
     value: function generateSideTextElement() {
-      function generateTextElement() {
+      var _this2 = this;
+
+      var generateTextElement = function generateTextElement() {
+        var _sideTextElement$clas;
+
         var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
         var sideTextElement = document.createElement('div');
-        sideTextElement.classList.add('post-side__text', 'post-side__side-text');
+
+        (_sideTextElement$clas = sideTextElement.classList).add.apply(_sideTextElement$clas, _toConsumableArray(_this2.sideTextClasses));
+
         sideTextElement.placeholder = 'Side Text';
         sideTextElement.contentEditable = true;
         sideTextElement.innerHTML = text;
         return sideTextElement;
-      }
+      };
 
       if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
         return [generateTextElement()];
@@ -728,6 +747,7 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
         _iterator.f();
       }
 
+      console.log(sideTextsNodes, sideTexts);
       return {
         text: primaryText.innerHTML,
         side: {
@@ -750,11 +770,20 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
       return true;
     }
   }, {
+    key: "onPaste",
+    value: function onPaste(event) {
+      console.log(event); // event.target.innerHTML += event.detail.data;
+    }
+  }, {
     key: "addField",
     value: function addField() {
+      var _newTextField$classLi;
+
       var wrapper = document.querySelector('.post-side__side-wrapper');
       var newTextField = document.createElement('div');
-      newTextField.classList.add('post-side__text');
+
+      (_newTextField$classLi = newTextField.classList).add.apply(_newTextField$classLi, _toConsumableArray(this.sideTextClasses));
+
       newTextField.placeholder = 'Side Text';
       newTextField.contentEditable = true;
       wrapper.appendChild(newTextField);
@@ -765,6 +794,13 @@ var PostSide = /*#__PURE__*/function (_AddFieldButton) {
       return {
         title: 'Side',
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M4 22h-4v-4h4v4zm0-12h-4v4h4v-4zm0-8h-4v4h4v-4zm3 0v4h17v-4h-17zm0 12h17v-4h-17v4zm0 8h17v-4h-17v4z"/></svg>'
+      };
+    }
+  }, {
+    key: "pasteConfig",
+    get: function get() {
+      return {
+        tags: ['IMG', 'UL', 'H1']
       };
     }
   }]);
@@ -955,7 +991,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".post-side__container {\n    display: flex;\n    justify-content: space-between;\n}\n\n.post-side__primary-text-wrapper {\n    width: 68%;\n}\n\n.post-side__primary-text {\n    height: 300px !important;\n}\n\n.post-side__side-wrapper {\n    position: relative;\n    width: 30%;\n}\n\n.post-side__title, .article-block__title, .article-block__link, .simage__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n}\n\n.post-side__text {\n    width: 100%;\n    border: 1px solid #eeeeee;\n    padding: 15px 15px;\n    margin: 15px 0;\n    height: 100px;\n}\n\n.plus__button {\n    position: absolute;\n    right: 0;\n    top: 100%;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 100;\n}\n\n.post-side__button > path {\n    fill: #ccc;\n}\n\n.gallery__wrapper {\n    display: flex;\n    justify-content: space-between;\n}\n\n.gallery__container {\n    width: 45%;\n    position: relative;\n}\n\n.gallery__image {\n    transition: .1s ease-in;\n    border: 1px solid #007bff;\n    width: 230px;\n}\n\n.gallery__remove-icon {\n    position: absolute;\n    right: -33px;\n    top: 0;\n    background: #fff;\n    cursor: pointer;\n}\n\n.gallery__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n    display: block;\n}\n\n.megaphoto__image {\n    width: 100% !important;\n}\n\n.simage__image {\n    width: 60%;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".ce-block {\n    margin: 20px 0;\n}\n\n.post-side__container {\n    display: flex;\n    justify-content: space-between;\n}\n\n.post-side__primary-text-wrapper {\n    width: 68%;\n}\n\n.post-side__primary-text {\n    height: -webkit-fit-content !important;\n    height: -moz-fit-content !important;\n    height: fit-content !important;\n}\n\n.post-side__side-wrapper {\n    position: relative;\n    width: 30%;\n}\n\n.post-side__title, .article-block__title, .article-block__link, .simage__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 5px 0;\n}\n\n.post-side__text {\n    width: 100%;\n    border: 1px solid #eeeeee;\n    padding: 15px 15px;\n    margin: 15px 0;\n    height: -webkit-fit-content;\n    height: -moz-fit-content;\n    height: fit-content;\n}\n\n.plus__button {\n    position: absolute;\n    right: 0;\n    top: 100%;\n    width: 25px;\n    height: 25px;\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 100;\n}\n\n.post-side__button > path {\n    fill: #ccc;\n}\n\n.gallery__wrapper {\n    display: flex;\n    justify-content: space-between;\n}\n\n.gallery__container {\n    width: 45%;\n    position: relative;\n}\n\nimg {\n    transition: .1s ease-in;\n    border: 1px solid #007bff;\n    width: 230px;\n}\n\n.gallery__remove-icon {\n    position: absolute;\n    right: -33px;\n    top: 0;\n    background: #fff;\n    cursor: pointer;\n}\n\n.gallery__caption {\n    width: 100%;\n    border: 1px solid #ccc;\n    padding: 15px 15px;\n    margin: 15px 0;\n    display: block;\n}\n\n.megaphoto__image {\n    width: 100% !important;\n}\n\n.simage__image {\n    width: 60%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

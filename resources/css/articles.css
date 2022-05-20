@@ -1,3 +1,7 @@
+.ce-block {
+    margin: 20px 0;
+}
+
 .post-side__container {
     display: flex;
     justify-content: space-between;
@@ -8,7 +12,7 @@
 }
 
 .post-side__primary-text {
-    height: 300px !important;
+    height: fit-content !important;
 }
 
 .post-side__side-wrapper {
@@ -20,7 +24,7 @@
     width: 100%;
     border: 1px solid #ccc;
     padding: 15px 15px;
-    margin: 15px 0;
+    margin: 5px 0;
 }
 
 .post-side__text {
@@ -28,7 +32,7 @@
     border: 1px solid #eeeeee;
     padding: 15px 15px;
     margin: 15px 0;
-    height: 100px;
+    height: fit-content;
 }
 
 .plus__button {
@@ -56,7 +60,7 @@
     position: relative;
 }
 
-.gallery__image {
+img {
     transition: .1s ease-in;
     border: 1px solid #007bff;
     width: 230px;
