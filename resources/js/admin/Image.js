@@ -1,10 +1,12 @@
 import Photo from "./components/Photo";
 import MIcon from "../../images/icons8-m-50.png";
+import _ from "lodash";
 
 class Image extends Photo {
     inputClass = 'simage__input';
     imageClass = 'simage__image';
-    megaphoto = false;
+    megaphoto = undefined;
+
     static get toolbox() {
         return {
             title: 'Image',
@@ -15,6 +17,11 @@ class Image extends Photo {
     constructor({data}) {
         super();
 
+        if (!_.isEmpty(data)) {
+            this.megaphoto = data.options.megaphoto;
+        } else {
+            this.megaphoto = false;
+        }
         this.data = data;
     }
 

@@ -415,6 +415,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_Photo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Photo */ "./resources/js/admin/components/Photo.js");
 /* harmony import */ var _images_icons8_m_50_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../images/icons8-m-50.png */ "./resources/images/icons8-m-50.png");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -442,6 +444,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Image = /*#__PURE__*/function (_Photo) {
   _inherits(Image, _Photo);
 
@@ -460,7 +463,13 @@ var Image = /*#__PURE__*/function (_Photo) {
 
     _defineProperty(_assertThisInitialized(_this), "imageClass", 'simage__image');
 
-    _defineProperty(_assertThisInitialized(_this), "megaphoto", false);
+    _defineProperty(_assertThisInitialized(_this), "megaphoto", undefined);
+
+    if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(data)) {
+      _this.megaphoto = data.options.megaphoto;
+    } else {
+      _this.megaphoto = false;
+    }
 
     _this.data = data;
     return _this;
@@ -901,23 +910,24 @@ var Photo = /*#__PURE__*/function () {
     value: function generateImage() {
       var container = document.createElement('div');
       container.classList.add(this.containerClass);
-      var child = undefined;
+      var image = undefined;
 
       if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
-        child = document.createElement('input');
-        child.setAttribute('type', 'file');
-        child.classList.add(this.inputClass);
-        child.addEventListener('change', this.uploadFile.bind(this));
+        image = document.createElement('input');
+        image.setAttribute('type', 'file');
+        image.classList.add(this.inputClass);
+        image.addEventListener('change', this.uploadFile.bind(this));
       }
 
       if (!lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
-        child = document.createElement('img');
-        child.src = this.data.url;
-        child.classList.add(this.imageClass);
+        image = document.createElement('img');
+        image.src = this.data.url;
+        image.classList.add(this.imageClass);
+        this.megaphoto ? image.classList.add('megaphoto__image') : '';
       }
 
-      container.appendChild(child);
-      return this.containerClass ? container : child;
+      container.appendChild(image);
+      return this.containerClass ? container : image;
     }
   }, {
     key: "uploadFile",

@@ -7,23 +7,24 @@ class Photo {
     generateImage() {
         const container = document.createElement('div');
         container.classList.add(this.containerClass);
-        let child = undefined;
+        let image = undefined;
 
         if (_.isEmpty(this.data)) {
-            child = document.createElement('input');
-            child.setAttribute('type', 'file');
-            child.classList.add(this.inputClass);
-            child.addEventListener('change', this.uploadFile.bind(this));
+            image = document.createElement('input');
+            image.setAttribute('type', 'file');
+            image.classList.add(this.inputClass);
+            image.addEventListener('change', this.uploadFile.bind(this));
         }
 
         if (!_.isEmpty(this.data)) {
-            child = document.createElement('img');
-            child.src = this.data.url;
-            child.classList.add(this.imageClass);
+            image = document.createElement('img');
+            image.src = this.data.url;
+            image.classList.add(this.imageClass);
+            this.megaphoto ? image.classList.add('megaphoto__image') : '';
         }
 
-        container.appendChild(child);
-        return this.containerClass ? container : child;
+        container.appendChild(image);
+        return this.containerClass ? container : image;
     }
 
     uploadFile(event) {

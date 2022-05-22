@@ -13,8 +13,13 @@ p {
     color: #a8a7a7;
 }
 
-.image__image--megaphoto {
+.image__image {
+    margin: 15px 0;
+    max-width: 100%;
+}
 
+.image__image--megaphoto {
+    width: 100%;
 }
 
 .articles-block__wrapper {
