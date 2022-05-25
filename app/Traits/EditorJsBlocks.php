@@ -60,8 +60,8 @@ HTML;
             $html = '<ul class="articles-block__list">';
 
             array_map(function ($link) use (&$html) {
-                $articleId = Url::fromString($link)->getFirstSegment();
-                $articleTitle = Article::find($articleId)?->title;
+                $articleId = Url::fromString($link)->getLastSegment();
+                $articleTitle = Article::find($articleId)?->title ?? $link;
 
                 $html .=
                     <<<HTML
