@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->group(function () {
+    Route::redirect('/', '/admin/articles');
     Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class)
         ->except('show', 'destroy');
 
