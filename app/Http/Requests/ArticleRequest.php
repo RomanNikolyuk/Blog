@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest
@@ -25,8 +26,13 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'description' => 'required|json',
+            'description' => 'required|json|min:60',
             'image' => 'required|url'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        return response()->json($validator->errors()->toJson(), 422);
     }
 }

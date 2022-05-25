@@ -2,6 +2,10 @@
     margin: 20px 0;
 }
 
+.simage__wrapper {
+    position: relative;
+}
+
 .post-side__container {
     display: flex;
     justify-content: space-between;
@@ -72,6 +76,7 @@ img {
     top: 0;
     background: #fff;
     cursor: pointer;
+    width: 30px !important;
 }
 
 .gallery__caption {

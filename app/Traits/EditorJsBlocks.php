@@ -88,12 +88,15 @@ RETURN;
 
     protected function getImageHTML(object $data): string
     {
-        $megaphoto = $data->options->megaphoto ? 'image__image--megaphoto' : '';
+        $bigCaptionClass = $data->bigCaption ? 'image__big-caption' : '';
+        $smallCaptionClass = $data->smallCaption ? 'image__small-caption' : '';
+        $megaphotoClass = $data->options->megaphoto ? 'image__image--megaphoto' : '';
+
         return <<<HTML
             <div class="image__wrapper">
-                <img src="$data->url" class="image__image $megaphoto" alt="">
-                <p class="image__big-caption">$data->bigCaption</p>
-                <p class="image__small-caption">$data->smallCaption</p>
+                <img src="$data->url" class="image__image $megaphotoClass" alt="">
+                <p class="$bigCaptionClass">$data->bigCaption</p>
+                <p class="$smallCaptionClass">$data->smallCaption</p>
             </div>
 HTML;
     }

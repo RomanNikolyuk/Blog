@@ -30,11 +30,7 @@ class Photo {
     uploadFile(event) {
         const file = event.target.files[0];
         const container = event.target.parentNode;
-        const removeIcon = document.createElement('img');
-        removeIcon.setAttribute('src', removeImg);
-        removeIcon.classList.add('gallery__remove-icon');
-        removeIcon.addEventListener('click', this.#removeImage.bind(this));
-
+        const removeIcon = this.#removeButton();
         const formData = new FormData();
         formData.append('image', file);
 
@@ -73,6 +69,15 @@ class Photo {
         oldImage.remove();
 
         container.insertAdjacentElement('afterbegin', this.generateImage());
+    }
+
+    #removeButton() {
+        const removeIcon = document.createElement('img');
+        removeIcon.setAttribute('src', removeImg);
+        removeIcon.classList.add('gallery__remove-icon');
+        removeIcon.addEventListener('click', this.#removeImage.bind(this));
+
+        return removeIcon;
     }
 }
 

@@ -75,7 +75,7 @@ class Image extends Photo {
         const caption2 = blockContent.querySelector('#caption2');
 
         return {
-            url: image.src,
+            url: image?.src,
             bigCaption: caption1.value,
             smallCaption: caption2.value,
             options: {
@@ -86,10 +86,6 @@ class Image extends Photo {
 
     validate(saveData) {
         if (!saveData.url) {
-            return false;
-        }
-
-        if (saveData.bigCaption.length < 2) {
             return false;
         }
 

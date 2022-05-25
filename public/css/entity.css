@@ -15,11 +15,11 @@ p {
 
 .image__image {
     margin: 15px 0;
-    max-width: 100%;
+    max-width: 80%;
 }
 
 .image__image--megaphoto {
-    width: 100%;
+    width: 80%;
 }
 
 .articles-block__wrapper {
