@@ -70,9 +70,7 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
         }
     })
         .then(async output => {
-            if (output.ok) {
-                window.location.href = '/admin/articles';
-            } else {
+            if (!output.ok) {
                 const json = await output.json();
 
                 Swal.fire({
@@ -80,6 +78,8 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
                     title: 'Oops...',
                     text: json.message,
                 });
+            } else {
+                window.location.href = '/admin/articles';
             }
         });
 });

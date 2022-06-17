@@ -870,9 +870,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../images/icons8-remove-32.png */ "./resources/images/icons8-remove-32.png");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../images/icons8-remove-32.png */ "./resources/images/icons8-remove-32.png");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -886,6 +896,7 @@ function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollect
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
 
 
 
@@ -912,14 +923,14 @@ var Photo = /*#__PURE__*/function () {
       container.classList.add(this.containerClass);
       var image = undefined;
 
-      if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+      if (lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data)) {
         image = document.createElement('input');
         image.setAttribute('type', 'file');
         image.classList.add(this.inputClass);
         image.addEventListener('change', this.uploadFile.bind(this));
       }
 
-      if (!lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+      if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data)) {
         image = document.createElement('img');
         image.src = this.data.url;
         image.classList.add(this.imageClass);
@@ -947,9 +958,44 @@ var Photo = /*#__PURE__*/function () {
         headers: {
           'X-CSRF-TOKEN': this.csrfToken
         }
-      }).then(function (response) {
-        return response.json();
-      }).then(function (json) {
+      }).then( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(response) {
+          var json;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!response.ok) {
+                    _context.next = 4;
+                    break;
+                  }
+
+                  return _context.abrupt("return", response.json());
+
+                case 4:
+                  _context.next = 6;
+                  return output.json();
+
+                case 6:
+                  json = _context.sent;
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: json.message
+                  });
+
+                case 8:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }()).then(function (json) {
         event.target.remove();
         container.insertAdjacentHTML('afterbegin', "<img src=\"".concat(json.file.url, "\" alt=\"\" class=\"").concat(_this.imageClass, "\">"));
         container.appendChild(removeIcon);
@@ -981,7 +1027,7 @@ function _removeImage2(event) {
 
 function _removeButton2() {
   var removeIcon = document.createElement('img');
-  removeIcon.setAttribute('src', _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  removeIcon.setAttribute('src', _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_1__["default"]);
   removeIcon.classList.add('gallery__remove-icon');
   removeIcon.addEventListener('click', _classPrivateMethodGet(this, _removeImage, _removeImage2).bind(this));
   return removeIcon;
@@ -23569,26 +23615,26 @@ document.querySelector('#form').addEventListener('submit', /*#__PURE__*/function
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        if (!output.ok) {
-                          _context.next = 4;
+                        if (output.ok) {
+                          _context.next = 7;
                           break;
                         }
 
-                        window.location.href = '/admin/articles';
-                        _context.next = 8;
-                        break;
-
-                      case 4:
-                        _context.next = 6;
+                        _context.next = 3;
                         return output.json();
 
-                      case 6:
+                      case 3:
                         json = _context.sent;
                         sweetalert2__WEBPACK_IMPORTED_MODULE_9___default().fire({
                           icon: 'error',
                           title: 'Oops...',
                           text: json.message
                         });
+                        _context.next = 8;
+                        break;
+
+                      case 7:
+                        window.location.href = '/admin/articles';
 
                       case 8:
                       case "end":

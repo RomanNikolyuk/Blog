@@ -5,7 +5,7 @@
         <div class="row blog-entries element-animate fadeInUp element-animated">
             <div class="col-md-14 col-lg-12 main-content">
                 <img src="{{ $article->image }}" alt="Image"
-                     class="img-fluid mb-5" style="" data-pagespeed-url-hash="3455570913">
+                     class="img-fluid mb-5" style="">
                 <div class="post-meta">
                     <span class="mr-2">{{ $article->created_at->format('F d, y') }}</span> •
                     <span class="ml-2"><span class="fa fa-comments"></span> {{ $article->comments->count() }}</span>

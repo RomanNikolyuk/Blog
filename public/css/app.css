@@ -670,6 +670,12 @@ select {
 .-ml-px {
   margin-left: -1px;
 }
+.mr-2 {
+  margin-right: 0.5rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -684,12 +690,6 @@ select {
 }
 .mt-2 {
   margin-top: 0.5rem;
-}
-.mr-2 {
-  margin-right: 0.5rem;
-}
-.ml-2 {
-  margin-left: 0.5rem;
 }
 .mt-4 {
   margin-top: 1rem;

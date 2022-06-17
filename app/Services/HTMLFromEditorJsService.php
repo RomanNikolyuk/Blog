@@ -10,9 +10,6 @@ class HTMLFromEditorJsService
     protected array $blocks;
     use EditorJsBlocks;
 
-    /**
-     * @throws EditorJSException
-     */
     public function __construct(string $editorJsJson)
     {
         $this->blocks = $this->getBlocks($editorJsJson);
@@ -32,7 +29,6 @@ class HTMLFromEditorJsService
 
     protected function getBlocks(string $json)
     {
-        // TODO: delete supporting old json format
         return json_decode($json)->blocks;
     }
 

@@ -1,5 +1,6 @@
 import removeImg from "../../../images/icons8-remove-32.png";
 import _ from "lodash";
+import Swal from "sweetalert2";
 
 class Photo {
     csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
@@ -40,8 +41,18 @@ class Photo {
             headers: {
                 'X-CSRF-TOKEN': this.csrfToken
             }
-        }).then((response) => {
-            return response.json();
+        }).then(async (response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                const json = await output.json();
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: json.message,
+                });
+            }
         }).then(json => {
             event.target.remove();
             container.insertAdjacentHTML('afterbegin', `<img src="${json.file.url}" alt="" class="${this.imageClass}">`)
