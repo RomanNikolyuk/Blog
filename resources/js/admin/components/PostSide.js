@@ -1,9 +1,11 @@
-import AddFieldButton from "./components/AddFieldButton";
+import AddFieldButton from "./AddFieldButton";
 import _ from "lodash";
 
 class PostSide extends AddFieldButton {
-    primaryTextClasses = ['post-side__primary-text', 'post-side__text'];
-    sideTextClasses = ['post-side__text', 'post-side__side-text']
+    primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
+    sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
+    sideTextClasses = ['post-side__text', 'post-side__side-text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
+
     constructor({data}) {
         super();
 
@@ -51,7 +53,7 @@ class PostSide extends AddFieldButton {
     generateSideTitle() {
         const sideTitle = document.createElement('div');
 
-        sideTitle.classList.add('post-side__title');
+        sideTitle.classList.add(...this.sideTitleClasses);
         sideTitle.placeholder = 'Enter Side Title';
         sideTitle.contentEditable = true;
         sideTitle.innerHTML = this.data.side?.title ?? '';

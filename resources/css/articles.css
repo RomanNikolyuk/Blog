@@ -24,11 +24,19 @@
     width: 30%;
 }
 
-.post-side__title, .article-block__title, .article-block__link, .simage__caption {
+.article-block__title, .article-block__link, .simage__caption {
     width: 100%;
     border: 1px solid #ccc;
     padding: 15px 15px;
     margin: 5px 0;
+}
+
+.post-side__title {
+    color: rgb(14 165 233);
+}
+
+.article-block__link, .simage__caption {
+    padding: 10px 15px;
 }
 
 .post-side__text {
@@ -66,17 +74,16 @@
 
 img {
     transition: .1s ease-in;
-    border: 1px solid #007bff;
     width: 230px;
 }
 
 .gallery__remove-icon {
     position: absolute;
-    right: -33px;
-    top: 0;
+    right: 0;
+    top: 10px;
     background: #fff;
     cursor: pointer;
-    width: 30px !important;
+    width: 25px !important;
 }
 
 .gallery__caption {

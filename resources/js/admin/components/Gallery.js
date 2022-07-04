@@ -1,5 +1,5 @@
-import GalleryImage from '../../images/icons8-gallery-80.png';
-import Photo from "./components/Photo";
+import GalleryImage from '../../../images/icons8-gallery-80.png';
+import Photo from "./Photo";
 import _ from "lodash";
 
 class Gallery extends Photo {

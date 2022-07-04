@@ -1,17 +1,17 @@
 import EditorJS from "@editorjs/editorjs";
 
-const Header = require('@editorjs/header');
 import Embed from '@editorjs/embed';
-import PostSide from "./PostSide";
+import PostSide from "./components/PostSide";
 import '../../css/articles.css';
-import Gallery from "./Gallery";
-
-const csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
+import Gallery from "./components/Gallery";
 import List from "@editorjs/list";
-import ArticlesBlock from "./ArticlesBlock";
-import Image from "./Image";
+import ArticlesBlock from "./components/ArticlesBlock";
+import Image from "./components/Image";
 import Swal from "sweetalert2";
 
+const Header = require('@editorjs/header');
+
+const csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
 const fillData = document.querySelector('script[data-data]').dataset.data;
 const articleId = document.querySelector('script[data-id]').dataset.id;
 
@@ -61,7 +61,7 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
     formData.append('image', imageSrc);
     formData.append('_method', fetchMethod);
 
-    fetch(fetchUri, {
+    const output = await fetch(fetchUri, {
         method: 'POST',
         body: formData,
         headers: {
@@ -69,17 +69,16 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
             'accept': 'application/json'
         }
     })
-        .then(async output => {
-            if (!output.ok) {
-                const json = await output.json();
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: json.message,
-                });
-            } else {
-                window.location.href = '/admin/articles';
-            }
+    if (!output.ok) {
+        const json = await output.json();
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: json.message,
         });
+    } else {
+        window.location.href = '/admin/articles';
+    }
 });

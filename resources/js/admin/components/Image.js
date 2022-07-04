@@ -1,10 +1,10 @@
-import Photo from "./components/Photo";
-import MIcon from "../../images/icons8-m-50.png";
+import Photo from "./Photo";
+import MIcon from "../../../images/icons8-m-50.png";
 import _ from "lodash";
 
 class Image extends Photo {
-    inputClass = 'simage__input';
     imageClass = 'simage__image';
+    captionClasses = ['appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
     megaphoto = undefined;
 
     static get toolbox() {
@@ -29,8 +29,8 @@ class Image extends Photo {
         const image = this.generateImage();
         const caption1 = document.createElement('input');
         const caption2 = document.createElement('input');
-        caption1.classList.add('simage__caption');
-        caption2.classList.add('simage__caption');
+        caption1.classList.add('simage__caption', ...this.captionClasses);
+        caption2.classList.add('simage__caption', ...this.captionClasses);
         caption1.id = 'caption1';
         caption2.id = 'caption2';
         caption1.placeholder = 'Enter Big Caption';

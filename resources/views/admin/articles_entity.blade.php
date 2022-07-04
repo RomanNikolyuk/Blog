@@ -18,7 +18,7 @@
                 <div
                     class=" w-full justify-center align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
 
-                    <form class="w-full max-w-lg"
+                    <form class="w-full"
                           id="form"
                           action="{{ isset($article) ? route('articles.update', $article->id) : route('articles.store') }}"
                           method="post">
@@ -75,6 +75,6 @@
         </div>
     </div>
     @section('scripts')
-        <script src="{{ asset('js/articles.js') }}" defer data-data="{{ $article->rawDescription ?? '' }}" data-id="{{ $article->id ?? ''}}"></script>
+        <script src="{{ asset('js/main.js') }}" defer data-data="{{ $article->rawDescription ?? '' }}" data-id="{{ $article->id ?? ''}}"></script>
     @endsection
 </x-app-layout>
