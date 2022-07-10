@@ -1,12 +1,12 @@
 import EditorJS from "@editorjs/editorjs";
 
 import Embed from '@editorjs/embed';
-import PostSide from "./components/PostSide";
+import TextWithSideBlock from "./blocks/TextWithSideBlock";
 import '../../css/articles.css';
-import Gallery from "./components/Gallery";
+import GalleryBlock from "./blocks/GalleryBlock";
 import List from "@editorjs/list";
-import ArticlesBlock from "./components/ArticlesBlock";
-import Image from "./components/Image";
+import LinksBlock from "./blocks/LinksBlock";
+import ImageBlock from "./blocks/ImageBlock";
 import Swal from "sweetalert2";
 
 const Header = require('@editorjs/header');
@@ -26,7 +26,7 @@ const editorJs = new EditorJS({
                 placeholder: 'Enter a level'
             }
         },
-        image: Image,
+        image: ImageBlock,
         list: {
             class: List,
             inlineToolbar: true,
@@ -35,10 +35,10 @@ const editorJs = new EditorJS({
             }
         },
         embed: Embed,
-        gallery: Gallery,
-        articlesBlock: ArticlesBlock,
+        gallery: GalleryBlock,
+        articlesBlock: LinksBlock,
         side: {
-            class: PostSide,
+            class: TextWithSideBlock,
             inlineToolbar: true
         }
     },

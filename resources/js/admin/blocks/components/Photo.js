@@ -1,12 +1,12 @@
-import removeImg from "../../../images/icons8-remove-32.png";
+import removeImg from "../../../../images/icons8-remove-32.png";
 import _ from "lodash";
 import Swal from "sweetalert2";
 
 // Generates Photo
 class Photo {
-    csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
+    static csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
 
-    generateImage() {
+    static generateImage() {
         const container = document.createElement('div');
         container.classList.add(this.containerClass);
         let image = undefined;
@@ -15,7 +15,7 @@ class Photo {
             image = document.createElement('input');
             image.setAttribute('type', 'file');
             image.classList.add(this.inputClass);
-            image.addEventListener('change', this.uploadFile.bind(this));
+            image.addEventListener('change', Photo.uploadFile.bind(this));
         }
 
         if (!_.isEmpty(this.data)) {
@@ -29,10 +29,10 @@ class Photo {
         return this.containerClass ? container : image;
     }
 
-    uploadFile(event) {
+    static uploadFile(event) {
         const file = event.target.files[0];
         const container = event.target.parentNode;
-        const removeIcon = this.#removeButton();
+        // const removeIcon = Photo.removeButton();
         const formData = new FormData();
         formData.append('image', file);
 
@@ -57,11 +57,11 @@ class Photo {
         }).then(json => {
             event.target.remove();
             container.insertAdjacentHTML('afterbegin', `<img src="${json.file.url}" alt="" class="${this.imageClass}">`)
-            container.appendChild(removeIcon);
+            // container.appendChild(removeIcon);
         });
     }
 
-    #removeImage(event) {
+    static removeImage(event) {
         const container = event.target.parentNode;
         const oldImage = container.querySelector('img');
         const imagePath = container.querySelector('img').getAttribute('src');
@@ -83,11 +83,11 @@ class Photo {
         container.insertAdjacentElement('afterbegin', this.generateImage());
     }
 
-    #removeButton() {
+    static removeButton() {
         const removeIcon = document.createElement('img');
         removeIcon.setAttribute('src', removeImg);
         removeIcon.classList.add('gallery__remove-icon');
-        removeIcon.addEventListener('click', this.#removeImage.bind(this));
+        removeIcon.addEventListener('click', this.removeImage.bind(this));
 
         return removeIcon;
     }

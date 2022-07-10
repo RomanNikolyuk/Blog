@@ -1,7 +1,7 @@
-import AddFieldButton from "./AddFieldButton";
+import Button from "./components/Button";
 import _ from "lodash";
 
-class PostSide extends AddFieldButton {
+class TextWithSideBlock extends Button {
     primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
     sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
     sideTextClasses = ['post-side__text', 'post-side__side-text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
@@ -15,7 +15,7 @@ class PostSide extends AddFieldButton {
     }
     static get toolbox() {
         return {
-            title: 'Side',
+            title: 'Text with Side',
             icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M4 22h-4v-4h4v4zm0-12h-4v4h4v-4zm0-8h-4v4h4v-4zm3 0v4h17v-4h-17zm0 12h17v-4h-17v4zm0 8h17v-4h-17v4z"/></svg>'
         }
     }
@@ -153,4 +153,4 @@ class PostSide extends AddFieldButton {
     }
 }
 
-export default PostSide;
+export default TextWithSideBlock;

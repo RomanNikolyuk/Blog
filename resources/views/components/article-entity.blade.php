@@ -2,7 +2,7 @@
     <a href="{{ route('article.view', $article->id) }}"
        class="blog-entry element-animate fadeIn element-animated" data-animate-effect="fadeIn">
         <img src="{{ $article->image }}"
-             alt="Image placeholder" data-pagespeed-url-hash="2774640817">
+             alt="ImageBlock placeholder" data-pagespeed-url-hash="2774640817">
         <div class="blog-content-body">
             <div class="post-meta">
                 <span class="mr-2">{{ $article->created_at->format('M d, Y') }}</span> •

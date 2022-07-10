@@ -1,8 +1,8 @@
-import Photo from "./Photo";
+import Photo from "./components/Photo";
 import MIcon from "../../../images/icons8-m-50.png";
 import _ from "lodash";
 
-class Image extends Photo {
+class ImageBlock {
     imageClass = 'simage__image';
     captionClasses = ['appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
     megaphoto = undefined;
@@ -15,8 +15,6 @@ class Image extends Photo {
     }
 
     constructor({data}) {
-        super();
-
         if (!_.isEmpty(data)) {
             this.megaphoto = data.options.megaphoto;
         } else {
@@ -26,9 +24,10 @@ class Image extends Photo {
     }
 
     render() {
-        const image = this.generateImage();
+        const image = Photo.generateImage();
         const caption1 = document.createElement('input');
         const caption2 = document.createElement('input');
+
         caption1.classList.add('simage__caption', ...this.captionClasses);
         caption2.classList.add('simage__caption', ...this.captionClasses);
         caption1.id = 'caption1';
@@ -56,9 +55,9 @@ class Image extends Photo {
         };
 
         const button = document.createElement('div');
-
         button.classList.add('cdx-settings-button');
         button.innerHTML = buttonSettings.icon;
+
         button.addEventListener('click', () => {
             image.classList.toggle('megaphoto__image');
             this.megaphoto = !this.megaphoto;
@@ -93,4 +92,4 @@ class Image extends Photo {
     }
 }
 
-export default Image;
+export default ImageBlock;

@@ -63,13 +63,18 @@
 }
 
 .gallery__wrapper {
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;
+    justify-content: space-between;*/
 }
 
 .gallery__container {
     width: 45%;
     position: relative;
+}
+
+.gallery__row {
+    display: flex;
+    justify-content: space-between;
 }
 
 img {

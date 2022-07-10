@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row blog-entries element-animate fadeInUp element-animated">
             <div class="col-md-14 col-lg-12 main-content">
-                <img src="{{ $article->image }}" alt="Image"
+                <img src="{{ $article->image }}" alt="ImageBlock"
                      class="img-fluid mb-5" style="">
                 <div class="post-meta">
                     <span class="mr-2">{{ $article->created_at->format('F d, y') }}</span> •

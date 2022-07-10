@@ -53,7 +53,7 @@
                             <div class="w-full mb-8">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                        for="grid-password">
-                                    Image
+                                    ImageBlock
                                 </label>
                                 <input name="image"
                                        value="{{ old('image', 'https://via.placeholder.com/640x480.png/009999?text=quia') }}"
