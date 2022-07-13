@@ -73,21 +73,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _images_icons8_gallery_80_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../images/icons8-gallery-80.png */ "./resources/images/icons8-gallery-80.png");
-/* harmony import */ var _components_Photo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Photo */ "./resources/js/admin/blocks/components/Photo.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Button */ "./resources/js/admin/blocks/components/Button.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _images_icons8_gallery_80_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../images/icons8-gallery-80.png */ "./resources/images/icons8-gallery-80.png");
+/* harmony import */ var _components_Photo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Photo */ "./resources/js/admin/blocks/components/Photo.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Button */ "./resources/js/admin/blocks/components/Button.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -128,9 +120,9 @@ var GalleryBlock = /*#__PURE__*/function () {
           _document$querySelect;
 
       var row = document.createElement('div');
-      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_4__["default"].getPlusButton(this.render.bind(this));
+      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_3__["default"].getPlusButton(this.render.bind(this));
 
-      if (lodash__WEBPACK_IMPORTED_MODULE_3___default().isEmpty(this.data.urls)) {
+      if (lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data.urls)) {
         row.appendChild(this.generateImage());
         row.appendChild(this.generateImage());
       }
@@ -149,17 +141,13 @@ var GalleryBlock = /*#__PURE__*/function () {
   }, {
     key: "generateImage",
     value: function generateImage() {
-      var _this2 = this;
-
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
       var image = undefined;
 
       if (url === "") {
         image = document.createElement('input');
         image.type = 'file';
-        image.addEventListener('change', function (event) {
-          return _this2.uploadFile(event);
-        });
+        image.addEventListener('change', _components_Photo__WEBPACK_IMPORTED_MODULE_1__["default"].uploadFile.bind(this));
       } else {
         image = document.createElement('img');
         image.src = url;
@@ -167,64 +155,6 @@ var GalleryBlock = /*#__PURE__*/function () {
       }
 
       return image;
-    }
-  }, {
-    key: "uploadFile",
-    value: function uploadFile(event) {
-      var _this3 = this;
-
-      var file = event.target.files[0];
-      var container = event.target.parentNode; // const removeIcon = Photo.removeButton();
-
-      var formData = new FormData();
-      formData.append('image', file);
-      fetch('/admin/upload', {
-        method: "POST",
-        body: formData,
-        headers: {
-          'X-CSRF-TOKEN': this.csrfToken
-        }
-      }).then( /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(response) {
-          var json;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  if (!response.ok) {
-                    _context.next = 4;
-                    break;
-                  }
-
-                  return _context.abrupt("return", response.json());
-
-                case 4:
-                  _context.next = 6;
-                  return output.json();
-
-                case 6:
-                  json = _context.sent;
-                  sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: json.message
-                  });
-
-                case 8:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        return function (_x) {
-          return _ref2.apply(this, arguments);
-        };
-      }()).then(function (json) {
-        event.target.remove();
-        container.insertAdjacentHTML('afterbegin', "<img src=\"".concat(json.file.url, "\" alt=\"\" class=\"").concat(_this3.imageClass, "\">")); // container.appendChild(removeIcon);
-      });
     }
   }, {
     key: "save",
@@ -256,7 +186,7 @@ var GalleryBlock = /*#__PURE__*/function () {
     get: function get() {
       return {
         title: 'Gallery',
-        icon: "<img src=\"".concat(_images_icons8_gallery_80_png__WEBPACK_IMPORTED_MODULE_1__["default"], "\" alt=\"\"/>")
+        icon: "<img src=\"".concat(_images_icons8_gallery_80_png__WEBPACK_IMPORTED_MODULE_0__["default"], "\" alt=\"\"/>")
       };
     }
   }]);
@@ -283,25 +213,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _images_icons8_m_50_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../images/icons8-m-50.png */ "./resources/images/icons8-m-50.png");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -313,18 +229,6 @@ var ImageBlock = /*#__PURE__*/function () {
 
     _classCallCheck(this, ImageBlock);
 
-    _defineProperty(this, "imageClass", 'simage__image');
-
-    _defineProperty(this, "captionClasses", ['appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white']);
-
-    _defineProperty(this, "megaphoto", undefined);
-
-    if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(data)) {
-      this.megaphoto = data.options.megaphoto;
-    } else {
-      this.megaphoto = false;
-    }
-
     this.data = data;
   }
 
@@ -333,13 +237,15 @@ var ImageBlock = /*#__PURE__*/function () {
     value: function render() {
       var _caption1$classList, _caption2$classList, _this$data$bigCaption, _this$data$smallCapti;
 
-      var image = _components_Photo__WEBPACK_IMPORTED_MODULE_0__["default"].generateImage();
+      var wrapper = document.createElement('div');
+      var image = this.generateImage();
       var caption1 = document.createElement('input');
       var caption2 = document.createElement('input');
+      var captionClasses = ['appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
 
-      (_caption1$classList = caption1.classList).add.apply(_caption1$classList, ['simage__caption'].concat(_toConsumableArray(this.captionClasses)));
+      (_caption1$classList = caption1.classList).add.apply(_caption1$classList, ['simage__caption'].concat(captionClasses));
 
-      (_caption2$classList = caption2.classList).add.apply(_caption2$classList, ['simage__caption'].concat(_toConsumableArray(this.captionClasses)));
+      (_caption2$classList = caption2.classList).add.apply(_caption2$classList, ['simage__caption'].concat(captionClasses));
 
       caption1.id = 'caption1';
       caption2.id = 'caption2';
@@ -347,33 +253,28 @@ var ImageBlock = /*#__PURE__*/function () {
       caption2.placeholder = 'Enter Small Caption';
       caption1.value = (_this$data$bigCaption = this.data.bigCaption) !== null && _this$data$bigCaption !== void 0 ? _this$data$bigCaption : '';
       caption2.value = (_this$data$smallCapti = this.data.smallCaption) !== null && _this$data$smallCapti !== void 0 ? _this$data$smallCapti : '';
-      var wrapper = document.createElement('div');
       wrapper.appendChild(image);
       wrapper.appendChild(caption1);
       wrapper.appendChild(caption2);
       return wrapper;
     }
   }, {
-    key: "renderSettings",
-    value: function renderSettings() {
-      var _this = this;
+    key: "generateImage",
+    value: function generateImage() {
+      var image = undefined;
 
-      var wrapper = document.createElement('div');
-      var image = document.querySelector('.simage__image');
-      var buttonSettings = {
-        name: 'MegaPhoto',
-        icon: "<img src=\"".concat(_images_icons8_m_50_png__WEBPACK_IMPORTED_MODULE_1__["default"], "\" alt=\"\" width=\"20\" height=\"20\">")
-      };
-      var button = document.createElement('div');
-      button.classList.add('cdx-settings-button');
-      button.innerHTML = buttonSettings.icon;
-      button.addEventListener('click', function () {
-        image.classList.toggle('megaphoto__image');
-        _this.megaphoto = !_this.megaphoto;
-        button.classList.toggle('cdx-settings-button--active');
-      });
-      wrapper.appendChild(button);
-      return wrapper;
+      if (lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data)) {
+        image = document.createElement('input');
+        image.setAttribute('type', 'file');
+        image.addEventListener('change', _components_Photo__WEBPACK_IMPORTED_MODULE_0__["default"].uploadFile.bind(this));
+      }
+
+      if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data)) {
+        image = document.createElement('img');
+        image.src = this.data.url;
+      }
+
+      return image;
     }
   }, {
     key: "save",
@@ -386,7 +287,7 @@ var ImageBlock = /*#__PURE__*/function () {
         bigCaption: caption1.value,
         smallCaption: caption2.value,
         options: {
-          megaphoto: this.megaphoto
+          megaphoto: false
         }
       };
     }
@@ -631,10 +532,6 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
 
     _this = _super.call(this);
 
-    _defineProperty(_assertThisInitialized(_this), "primaryTextClasses", ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white']);
-
-    _defineProperty(_assertThisInitialized(_this), "sideTitleClasses", ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white']);
-
     _defineProperty(_assertThisInitialized(_this), "sideTextClasses", ['post-side__text', 'post-side__side-text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white']);
 
     _this.data = data;
@@ -652,7 +549,7 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
       var primaryTextWrapper = this.generatePrimaryTextWrapper(primaryText);
       var sideTitle = this.generateSideTitle();
       var sideTexts = this.generateSideTextElement();
-      var plusButton = this.getPlusButton(this.addField);
+      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_0__["default"].getPlusButton(this.addField);
       var sideWrapper = this.generateSideWrapper(sideTitle, sideTexts, plusButton);
       this.wrapper.appendChild(primaryTextWrapper);
       this.wrapper.appendChild(sideWrapper);
@@ -664,8 +561,9 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
       var _primaryText$classLis, _this$data$text;
 
       var primaryText = document.createElement('div');
+      var primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
 
-      (_primaryText$classLis = primaryText.classList).add.apply(_primaryText$classLis, _toConsumableArray(this.primaryTextClasses));
+      (_primaryText$classLis = primaryText.classList).add.apply(_primaryText$classLis, primaryTextClasses);
 
       primaryText.contentEditable = true;
       primaryText.innerHTML = (_this$data$text = this.data.text) !== null && _this$data$text !== void 0 ? _this$data$text : '';
@@ -677,8 +575,9 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
       var _sideTitle$classList, _this$data$side$title, _this$data$side;
 
       var sideTitle = document.createElement('div');
+      var sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
 
-      (_sideTitle$classList = sideTitle.classList).add.apply(_sideTitle$classList, _toConsumableArray(this.sideTitleClasses));
+      (_sideTitle$classList = sideTitle.classList).add.apply(_sideTitle$classList, sideTitleClasses);
 
       sideTitle.placeholder = 'Enter Side Title';
       sideTitle.contentEditable = true;
@@ -807,13 +706,6 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M4 22h-4v-4h4v4zm0-12h-4v4h4v-4zm0-8h-4v4h4v-4zm3 0v4h17v-4h-17zm0 12h17v-4h-17v4zm0 8h17v-4h-17v4z"/></svg>'
       };
     }
-  }, {
-    key: "pasteConfig",
-    get: function get() {
-      return {
-        tags: ['IMG', 'UL', 'H1']
-      };
-    }
   }]);
 
   return TextWithSideBlock;
@@ -880,10 +772,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../images/icons8-remove-32.png */ "./resources/images/icons8-remove-32.png");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -899,8 +789,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
- // Generates Photo
+ // Doing Something with given Photo
 
 var Photo = /*#__PURE__*/function () {
   function Photo() {
@@ -908,30 +797,6 @@ var Photo = /*#__PURE__*/function () {
   }
 
   _createClass(Photo, null, [{
-    key: "generateImage",
-    value: function generateImage() {
-      var container = document.createElement('div');
-      container.classList.add(this.containerClass);
-      var image = undefined;
-
-      if (lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data)) {
-        image = document.createElement('input');
-        image.setAttribute('type', 'file');
-        image.classList.add(this.inputClass);
-        image.addEventListener('change', Photo.uploadFile.bind(this));
-      }
-
-      if (!lodash__WEBPACK_IMPORTED_MODULE_2___default().isEmpty(this.data)) {
-        image = document.createElement('img');
-        image.src = this.data.url;
-        image.classList.add(this.imageClass);
-        this.megaphoto ? image.classList.add('megaphoto__image') : '';
-      }
-
-      container.appendChild(image);
-      return this.containerClass ? container : image;
-    }
-  }, {
     key: "uploadFile",
     value: function uploadFile(event) {
       var _this = this;
@@ -967,7 +832,7 @@ var Photo = /*#__PURE__*/function () {
 
                 case 6:
                   json = _context.sent;
-                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: json.message

@@ -2,8 +2,6 @@ import Button from "./components/Button";
 import _ from "lodash";
 
 class TextWithSideBlock extends Button {
-    primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
-    sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
     sideTextClasses = ['post-side__text', 'post-side__side-text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
 
     constructor({data}) {
@@ -20,18 +18,12 @@ class TextWithSideBlock extends Button {
         }
     }
 
-    static get pasteConfig() {
-        return {
-            tags: ['IMG', 'UL', 'H1']
-        };
-    }
-
     render() {
         const primaryText = this.generatePrimaryText();
         const primaryTextWrapper = this.generatePrimaryTextWrapper(primaryText);
         const sideTitle = this.generateSideTitle();
         const sideTexts = this.generateSideTextElement();
-        const plusButton = this.getPlusButton(this.addField);
+        const plusButton = Button.getPlusButton(this.addField);
         const sideWrapper = this.generateSideWrapper(sideTitle, sideTexts, plusButton);
 
         this.wrapper.appendChild(primaryTextWrapper);
@@ -42,8 +34,8 @@ class TextWithSideBlock extends Button {
 
     generatePrimaryText() {
         const primaryText = document.createElement('div');
-
-        primaryText.classList.add(...this.primaryTextClasses);
+        const primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
+        primaryText.classList.add(...primaryTextClasses);
         primaryText.contentEditable = true;
         primaryText.innerHTML = this.data.text ?? '';
 
@@ -52,8 +44,8 @@ class TextWithSideBlock extends Button {
 
     generateSideTitle() {
         const sideTitle = document.createElement('div');
-
-        sideTitle.classList.add(...this.sideTitleClasses);
+        const sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
+        sideTitle.classList.add(...sideTitleClasses);
         sideTitle.placeholder = 'Enter Side Title';
         sideTitle.contentEditable = true;
         sideTitle.innerHTML = this.data.side?.title ?? '';

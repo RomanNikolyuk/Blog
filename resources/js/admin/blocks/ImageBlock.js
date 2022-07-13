@@ -3,10 +3,6 @@ import MIcon from "../../../images/icons8-m-50.png";
 import _ from "lodash";
 
 class ImageBlock {
-    imageClass = 'simage__image';
-    captionClasses = ['appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
-    megaphoto = undefined;
-
     static get toolbox() {
         return {
             title: 'Image',
@@ -15,21 +11,18 @@ class ImageBlock {
     }
 
     constructor({data}) {
-        if (!_.isEmpty(data)) {
-            this.megaphoto = data.options.megaphoto;
-        } else {
-            this.megaphoto = false;
-        }
         this.data = data;
     }
 
     render() {
-        const image = Photo.generateImage();
+        const wrapper = document.createElement('div');
+        const image = this.generateImage();
         const caption1 = document.createElement('input');
         const caption2 = document.createElement('input');
+        const captionClasses = ['appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
 
-        caption1.classList.add('simage__caption', ...this.captionClasses);
-        caption2.classList.add('simage__caption', ...this.captionClasses);
+        caption1.classList.add('simage__caption', ...captionClasses);
+        caption2.classList.add('simage__caption', ...captionClasses);
         caption1.id = 'caption1';
         caption2.id = 'caption2';
         caption1.placeholder = 'Enter Big Caption';
@@ -37,7 +30,6 @@ class ImageBlock {
         caption1.value = this.data.bigCaption ?? '';
         caption2.value = this.data.smallCaption ?? '';
 
-        const wrapper = document.createElement('div');
         wrapper.appendChild(image);
         wrapper.appendChild(caption1);
         wrapper.appendChild(caption2);
@@ -45,27 +37,21 @@ class ImageBlock {
         return wrapper;
     }
 
-    renderSettings() {
-        const wrapper = document.createElement('div');
-        const image = document.querySelector('.simage__image');
+     generateImage() {
+        let image = undefined;
 
-        const buttonSettings = {
-            name: 'MegaPhoto',
-            icon: `<img src="${MIcon}" alt="" width="20" height="20">`
-        };
+        if (_.isEmpty(this.data)) {
+            image = document.createElement('input');
+            image.setAttribute('type', 'file');
+            image.addEventListener('change', Photo.uploadFile.bind(this));
+        }
 
-        const button = document.createElement('div');
-        button.classList.add('cdx-settings-button');
-        button.innerHTML = buttonSettings.icon;
+        if (!_.isEmpty(this.data)) {
+            image = document.createElement('img');
+            image.src = this.data.url;
+        }
 
-        button.addEventListener('click', () => {
-            image.classList.toggle('megaphoto__image');
-            this.megaphoto = !this.megaphoto;
-            button.classList.toggle('cdx-settings-button--active');
-        });
-        wrapper.appendChild(button);
-
-        return wrapper;
+        return image;
     }
 
     save(blockContent) {
@@ -78,7 +64,7 @@ class ImageBlock {
             bigCaption: caption1.value,
             smallCaption: caption2.value,
             options: {
-                megaphoto: this.megaphoto
+                megaphoto: false
             }
         };
     }

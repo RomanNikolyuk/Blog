@@ -1,33 +1,9 @@
 import removeImg from "../../../../images/icons8-remove-32.png";
-import _ from "lodash";
 import Swal from "sweetalert2";
 
-// Generates Photo
+// Doing Something with given Photo
 class Photo {
     static csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
-
-    static generateImage() {
-        const container = document.createElement('div');
-        container.classList.add(this.containerClass);
-        let image = undefined;
-
-        if (_.isEmpty(this.data)) {
-            image = document.createElement('input');
-            image.setAttribute('type', 'file');
-            image.classList.add(this.inputClass);
-            image.addEventListener('change', Photo.uploadFile.bind(this));
-        }
-
-        if (!_.isEmpty(this.data)) {
-            image = document.createElement('img');
-            image.src = this.data.url;
-            image.classList.add(this.imageClass);
-            this.megaphoto ? image.classList.add('megaphoto__image') : '';
-        }
-
-        container.appendChild(image);
-        return this.containerClass ? container : image;
-    }
 
     static uploadFile(event) {
         const file = event.target.files[0];

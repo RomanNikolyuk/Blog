@@ -55,7 +55,7 @@ class GalleryBlock {
         if (url === "") {
             image = document.createElement('input');
             image.type = 'file';
-            image.addEventListener('change', (event) => this.uploadFile(event));
+            image.addEventListener('change', Photo.uploadFile.bind(this));
         } else {
             image = document.createElement('img');
             image.src = url;
@@ -63,38 +63,6 @@ class GalleryBlock {
         }
 
         return image;
-    }
-
-    uploadFile(event) {
-        const file = event.target.files[0];
-        const container = event.target.parentNode;
-        // const removeIcon = Photo.removeButton();
-        const formData = new FormData();
-        formData.append('image', file);
-
-        fetch('/admin/upload', {
-            method: "POST",
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': this.csrfToken
-            }
-        }).then(async (response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                const json = await output.json();
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: json.message,
-                });
-            }
-        }).then(json => {
-            event.target.remove();
-            container.insertAdjacentHTML('afterbegin', `<img src="${json.file.url}" alt="" class="${this.imageClass}">`)
-            // container.appendChild(removeIcon);
-        });
     }
 
     save(blockContent) {
