@@ -11,6 +11,7 @@ class TextWithSideBlock extends Button {
         this.wrapper = document.createElement('div');
         this.wrapper.classList.add('post-side__container');
     }
+
     static get toolbox() {
         return {
             title: 'Text with Side',
@@ -19,12 +20,15 @@ class TextWithSideBlock extends Button {
     }
 
     render() {
-        const primaryText = this.generatePrimaryText();
-        const primaryTextWrapper = this.generatePrimaryTextWrapper(primaryText);
-        const sideTitle = this.generateSideTitle();
-        const sideTexts = this.generateSideTextElement();
-        const plusButton = Button.getPlusButton(this.addField);
-        const sideWrapper = this.generateSideWrapper(sideTitle, sideTexts, plusButton);
+        // Left big text field
+        const primaryText = this.#generatePrimaryText();
+        const primaryTextWrapper = this.#generatePrimaryTextWrapper(primaryText);
+        const plusButton = Button.getPlusButton(this.#addField.bind(this));
+        // Blue top text field
+        const sideTitle = this.#generateSideTitle();
+        // Right text fields
+        const sideTexts = this.#generateSideTextElement();
+        const sideWrapper = this.#generateSideWrapper(sideTitle, sideTexts, plusButton);
 
         this.wrapper.appendChild(primaryTextWrapper);
         this.wrapper.appendChild(sideWrapper);
@@ -32,17 +36,16 @@ class TextWithSideBlock extends Button {
         return this.wrapper;
     }
 
-    generatePrimaryText() {
+    #generatePrimaryText() {
         const primaryText = document.createElement('div');
-        const primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
-        primaryText.classList.add(...primaryTextClasses);
+        primaryText.classList.add('post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white');
         primaryText.contentEditable = true;
         primaryText.innerHTML = this.data.text ?? '';
 
         return primaryText;
     }
 
-    generateSideTitle() {
+    #generateSideTitle() {
         const sideTitle = document.createElement('div');
         const sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
         sideTitle.classList.add(...sideTitleClasses);
@@ -53,7 +56,7 @@ class TextWithSideBlock extends Button {
         return sideTitle;
     }
 
-    generateSideTextElement() {
+    #generateSideTextElement() {
         const generateTextElement = (text = '') => {
             const sideTextElement = document.createElement('div');
 
@@ -78,7 +81,7 @@ class TextWithSideBlock extends Button {
         }
     }
 
-    generatePrimaryTextWrapper(primaryText) {
+    #generatePrimaryTextWrapper(primaryText) {
         const primaryTextWrapper = document.createElement('div');
 
         primaryTextWrapper.classList.add('post-side__primary-text-wrapper')
@@ -87,7 +90,7 @@ class TextWithSideBlock extends Button {
         return primaryTextWrapper;
     }
 
-    generateSideWrapper(sideTitle, sideTexts, plusButton) {
+    #generateSideWrapper(sideTitle, sideTexts, plusButton) {
         const sideWrapper = document.createElement('div');
 
         sideWrapper.classList.add('post-side__side-wrapper');
@@ -96,6 +99,29 @@ class TextWithSideBlock extends Button {
         sideWrapper.appendChild(plusButton);
 
         return sideWrapper;
+    }
+
+    #addField() {
+        const wrapper = document.querySelector('.post-side__side-wrapper');
+        const newTextField = document.createElement('div');
+        newTextField.classList.add(...this.sideTextClasses);
+        newTextField.placeholder = 'Side Text';
+        newTextField.contentEditable = true;
+
+        wrapper.appendChild(newTextField);
+    }
+
+
+    validate(saveData) {
+        if (saveData.text.length < 4) {
+            return false;
+        }
+
+        if (saveData.side.title.length < 2) {
+            return false;
+        }
+
+        return true;
     }
 
     save(blockContent) {
@@ -115,33 +141,6 @@ class TextWithSideBlock extends Button {
                 text: sideTexts
             }
         }
-    }
-
-    validate(saveData) {
-        if (saveData.text.length < 4) {
-            return false;
-        }
-
-        if (saveData.side.title.length < 2) {
-            return false;
-        }
-
-        return true;
-    }
-
-    onPaste(event) {
-        console.log(event)
-        // event.target.innerHTML += event.detail.data;
-    }
-
-    addField() {
-        const wrapper = document.querySelector('.post-side__side-wrapper');
-        const newTextField = document.createElement('div');
-        newTextField.classList.add(...this.sideTextClasses);
-        newTextField.placeholder = 'Side Text';
-        newTextField.contentEditable = true;
-
-        wrapper.appendChild(newTextField);
     }
 }
 

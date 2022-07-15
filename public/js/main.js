@@ -479,17 +479,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -513,10 +513,28 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
 
+
+
+var _generatePrimaryText = /*#__PURE__*/new WeakSet();
+
+var _generateSideTitle = /*#__PURE__*/new WeakSet();
+
+var _generateSideTextElement = /*#__PURE__*/new WeakSet();
+
+var _generatePrimaryTextWrapper = /*#__PURE__*/new WeakSet();
+
+var _generateSideWrapper = /*#__PURE__*/new WeakSet();
+
+var _addField = /*#__PURE__*/new WeakSet();
 
 var TextWithSideBlock = /*#__PURE__*/function (_Button) {
   _inherits(TextWithSideBlock, _Button);
@@ -532,6 +550,18 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
 
     _this = _super.call(this);
 
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _addField);
+
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generateSideWrapper);
+
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generatePrimaryTextWrapper);
+
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generateSideTextElement);
+
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generateSideTitle);
+
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generatePrimaryText);
+
     _defineProperty(_assertThisInitialized(_this), "sideTextClasses", ['post-side__text', 'post-side__side-text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white']);
 
     _this.data = data;
@@ -545,95 +575,36 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
   _createClass(TextWithSideBlock, [{
     key: "render",
     value: function render() {
-      var primaryText = this.generatePrimaryText();
-      var primaryTextWrapper = this.generatePrimaryTextWrapper(primaryText);
-      var sideTitle = this.generateSideTitle();
-      var sideTexts = this.generateSideTextElement();
-      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_0__["default"].getPlusButton(this.addField);
-      var sideWrapper = this.generateSideWrapper(sideTitle, sideTexts, plusButton);
+      // Left big text field
+      var primaryText = _classPrivateMethodGet(this, _generatePrimaryText, _generatePrimaryText2).call(this);
+
+      var primaryTextWrapper = _classPrivateMethodGet(this, _generatePrimaryTextWrapper, _generatePrimaryTextWrapper2).call(this, primaryText);
+
+      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_0__["default"].getPlusButton(_classPrivateMethodGet(this, _addField, _addField2).bind(this)); // Blue top text field
+
+      var sideTitle = _classPrivateMethodGet(this, _generateSideTitle, _generateSideTitle2).call(this); // Right text fields
+
+
+      var sideTexts = _classPrivateMethodGet(this, _generateSideTextElement, _generateSideTextElement2).call(this);
+
+      var sideWrapper = _classPrivateMethodGet(this, _generateSideWrapper, _generateSideWrapper2).call(this, sideTitle, sideTexts, plusButton);
+
       this.wrapper.appendChild(primaryTextWrapper);
       this.wrapper.appendChild(sideWrapper);
       return this.wrapper;
     }
   }, {
-    key: "generatePrimaryText",
-    value: function generatePrimaryText() {
-      var _primaryText$classLis, _this$data$text;
-
-      var primaryText = document.createElement('div');
-      var primaryTextClasses = ['post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
-
-      (_primaryText$classLis = primaryText.classList).add.apply(_primaryText$classLis, primaryTextClasses);
-
-      primaryText.contentEditable = true;
-      primaryText.innerHTML = (_this$data$text = this.data.text) !== null && _this$data$text !== void 0 ? _this$data$text : '';
-      return primaryText;
-    }
-  }, {
-    key: "generateSideTitle",
-    value: function generateSideTitle() {
-      var _sideTitle$classList, _this$data$side$title, _this$data$side;
-
-      var sideTitle = document.createElement('div');
-      var sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
-
-      (_sideTitle$classList = sideTitle.classList).add.apply(_sideTitle$classList, sideTitleClasses);
-
-      sideTitle.placeholder = 'Enter Side Title';
-      sideTitle.contentEditable = true;
-      sideTitle.innerHTML = (_this$data$side$title = (_this$data$side = this.data.side) === null || _this$data$side === void 0 ? void 0 : _this$data$side.title) !== null && _this$data$side$title !== void 0 ? _this$data$side$title : '';
-      return sideTitle;
-    }
-  }, {
-    key: "generateSideTextElement",
-    value: function generateSideTextElement() {
-      var _this2 = this;
-
-      var generateTextElement = function generateTextElement() {
-        var _sideTextElement$clas;
-
-        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-        var sideTextElement = document.createElement('div');
-
-        (_sideTextElement$clas = sideTextElement.classList).add.apply(_sideTextElement$clas, _toConsumableArray(_this2.sideTextClasses));
-
-        sideTextElement.placeholder = 'Side Text';
-        sideTextElement.contentEditable = true;
-        sideTextElement.innerHTML = text;
-        return sideTextElement;
-      };
-
-      if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
-        return [generateTextElement()];
+    key: "validate",
+    value: function validate(saveData) {
+      if (saveData.text.length < 4) {
+        return false;
       }
 
-      if (!lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
-        var texts = [];
-        this.data.side.text.forEach(function (element) {
-          return texts.push(generateTextElement(element));
-        });
-        return texts;
+      if (saveData.side.title.length < 2) {
+        return false;
       }
-    }
-  }, {
-    key: "generatePrimaryTextWrapper",
-    value: function generatePrimaryTextWrapper(primaryText) {
-      var primaryTextWrapper = document.createElement('div');
-      primaryTextWrapper.classList.add('post-side__primary-text-wrapper');
-      primaryTextWrapper.appendChild(primaryText);
-      return primaryTextWrapper;
-    }
-  }, {
-    key: "generateSideWrapper",
-    value: function generateSideWrapper(sideTitle, sideTexts, plusButton) {
-      var sideWrapper = document.createElement('div');
-      sideWrapper.classList.add('post-side__side-wrapper');
-      sideWrapper.appendChild(sideTitle);
-      sideTexts.forEach(function (text) {
-        return sideWrapper.appendChild(text);
-      });
-      sideWrapper.appendChild(plusButton);
-      return sideWrapper;
+
+      return true;
     }
   }, {
     key: "save",
@@ -666,38 +637,6 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
         }
       };
     }
-  }, {
-    key: "validate",
-    value: function validate(saveData) {
-      if (saveData.text.length < 4) {
-        return false;
-      }
-
-      if (saveData.side.title.length < 2) {
-        return false;
-      }
-
-      return true;
-    }
-  }, {
-    key: "onPaste",
-    value: function onPaste(event) {
-      console.log(event); // event.target.innerHTML += event.detail.data;
-    }
-  }, {
-    key: "addField",
-    value: function addField() {
-      var _newTextField$classLi;
-
-      var wrapper = document.querySelector('.post-side__side-wrapper');
-      var newTextField = document.createElement('div');
-
-      (_newTextField$classLi = newTextField.classList).add.apply(_newTextField$classLi, _toConsumableArray(this.sideTextClasses));
-
-      newTextField.placeholder = 'Side Text';
-      newTextField.contentEditable = true;
-      wrapper.appendChild(newTextField);
-    }
   }], [{
     key: "toolbox",
     get: function get() {
@@ -710,6 +649,91 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
 
   return TextWithSideBlock;
 }(_components_Button__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+function _generatePrimaryText2() {
+  var _this$data$text;
+
+  var primaryText = document.createElement('div');
+  primaryText.classList.add('post-side__primary-text', 'post-side__text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white');
+  primaryText.contentEditable = true;
+  primaryText.innerHTML = (_this$data$text = this.data.text) !== null && _this$data$text !== void 0 ? _this$data$text : '';
+  return primaryText;
+}
+
+function _generateSideTitle2() {
+  var _sideTitle$classList, _this$data$side$title, _this$data$side;
+
+  var sideTitle = document.createElement('div');
+  var sideTitleClasses = ['post-side__title', 'mt-4', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white'];
+
+  (_sideTitle$classList = sideTitle.classList).add.apply(_sideTitle$classList, sideTitleClasses);
+
+  sideTitle.placeholder = 'Enter Side Title';
+  sideTitle.contentEditable = true;
+  sideTitle.innerHTML = (_this$data$side$title = (_this$data$side = this.data.side) === null || _this$data$side === void 0 ? void 0 : _this$data$side.title) !== null && _this$data$side$title !== void 0 ? _this$data$side$title : '';
+  return sideTitle;
+}
+
+function _generateSideTextElement2() {
+  var _this2 = this;
+
+  var generateTextElement = function generateTextElement() {
+    var _sideTextElement$clas;
+
+    var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var sideTextElement = document.createElement('div');
+
+    (_sideTextElement$clas = sideTextElement.classList).add.apply(_sideTextElement$clas, _toConsumableArray(_this2.sideTextClasses));
+
+    sideTextElement.placeholder = 'Side Text';
+    sideTextElement.contentEditable = true;
+    sideTextElement.innerHTML = text;
+    return sideTextElement;
+  };
+
+  if (lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+    return [generateTextElement()];
+  }
+
+  if (!lodash__WEBPACK_IMPORTED_MODULE_1___default().isEmpty(this.data)) {
+    var texts = [];
+    this.data.side.text.forEach(function (element) {
+      return texts.push(generateTextElement(element));
+    });
+    return texts;
+  }
+}
+
+function _generatePrimaryTextWrapper2(primaryText) {
+  var primaryTextWrapper = document.createElement('div');
+  primaryTextWrapper.classList.add('post-side__primary-text-wrapper');
+  primaryTextWrapper.appendChild(primaryText);
+  return primaryTextWrapper;
+}
+
+function _generateSideWrapper2(sideTitle, sideTexts, plusButton) {
+  var sideWrapper = document.createElement('div');
+  sideWrapper.classList.add('post-side__side-wrapper');
+  sideWrapper.appendChild(sideTitle);
+  sideTexts.forEach(function (text) {
+    return sideWrapper.appendChild(text);
+  });
+  sideWrapper.appendChild(plusButton);
+  return sideWrapper;
+}
+
+function _addField2() {
+  var _newTextField$classLi;
+
+  var wrapper = document.querySelector('.post-side__side-wrapper');
+  var newTextField = document.createElement('div');
+
+  (_newTextField$classLi = newTextField.classList).add.apply(_newTextField$classLi, _toConsumableArray(this.sideTextClasses));
+
+  newTextField.placeholder = 'Side Text';
+  newTextField.contentEditable = true;
+  wrapper.appendChild(newTextField);
+}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TextWithSideBlock);
 

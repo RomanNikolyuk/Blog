@@ -30,7 +30,7 @@
                         <div class="flex flex-wrap -mx-3 mb-6">
 
                             <div class="w-full mb-8">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                <label class="text-center block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                        for="grid-first-name">
                                     Title
                                 </label>
@@ -53,7 +53,7 @@
                             <div class="w-full mb-8">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                        for="grid-password">
-                                    ImageBlock
+                                    Basic Image Url
                                 </label>
                                 <input name="image"
                                        value="{{ old('image', 'https://via.placeholder.com/640x480.png/009999?text=quia') }}"

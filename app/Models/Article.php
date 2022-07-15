@@ -46,6 +46,7 @@ class Article extends Model
 
     /**
      * @throws EditorJSException
+     * @throws \Exception
      */
     protected function getHTMLFromEditorJs(String $description) : String
     {
