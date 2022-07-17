@@ -3,12 +3,10 @@
 namespace App\Services;
 
 use App\Exceptions\EditorJSException;
-use App\Traits\EditorJsBlocks;
 
 class HTMLFromEditorJsService
 {
     protected array $blocks;
-    use EditorJsBlocks;
 
     public function __construct(string $editorJsJson)
     {
