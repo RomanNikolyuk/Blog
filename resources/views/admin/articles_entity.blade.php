@@ -41,7 +41,7 @@
 
 
                             <div class="w-full mb-8">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-center"
                                        for="description">
                                     Description
                                 </label>
@@ -49,9 +49,8 @@
                             </div>
 
 
-
                             <div class="w-full mb-8">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-center"
                                        for="grid-password">
                                     Basic Image Url
                                 </label>

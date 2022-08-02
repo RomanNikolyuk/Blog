@@ -343,10 +343,16 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
 
 
+
+var _addField = /*#__PURE__*/new WeakSet();
 
 var LinksBlock = /*#__PURE__*/function () {
   function LinksBlock(_ref) {
@@ -354,9 +360,11 @@ var LinksBlock = /*#__PURE__*/function () {
 
     _classCallCheck(this, LinksBlock);
 
-    _defineProperty(this, "wrapper", document.createElement('div'));
+    _classPrivateMethodInitSpec(this, _addField);
 
     this.data = data;
+    this.wrapper = document.createElement('div');
+    this.wrapper.classList.add('article-block__wrapper');
   }
 
   _createClass(LinksBlock, [{
@@ -365,13 +373,12 @@ var LinksBlock = /*#__PURE__*/function () {
       var _this$data$title,
           _this = this;
 
-      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_0__["default"].getPlusButton(this.addField);
+      var plusButton = _components_Button__WEBPACK_IMPORTED_MODULE_0__["default"].getPlusButton(_classPrivateMethodGet(this, _addField, _addField2).bind(this));
       var title = document.createElement('input');
       var links = this.generateLinks();
       title.classList.add('article-block__title', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white');
       title.placeholder = 'Read Also';
       title.value = (_this$data$title = this.data.title) !== null && _this$data$title !== void 0 ? _this$data$title : '';
-      this.wrapper.classList.add('article-block__wrapper');
       this.wrapper.appendChild(title);
       links.forEach(function (linkNode) {
         return _this.wrapper.appendChild(linkNode);
@@ -441,11 +448,6 @@ var LinksBlock = /*#__PURE__*/function () {
       });
       return links;
     }
-  }, {
-    key: "addField",
-    value: function addField() {
-      this.wrapper.appendChild(this.generateLinks()[0]);
-    }
   }], [{
     key: "toolbox",
     get: function get() {
@@ -458,6 +460,10 @@ var LinksBlock = /*#__PURE__*/function () {
 
   return LinksBlock;
 }();
+
+function _addField2() {
+  this.wrapper.appendChild(this.generateLinks()[0]);
+}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LinksBlock);
 
@@ -524,6 +530,8 @@ function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(
 
 
 
+var _generateWrapper = /*#__PURE__*/new WeakSet();
+
 var _generatePrimaryText = /*#__PURE__*/new WeakSet();
 
 var _generateSideTitle = /*#__PURE__*/new WeakSet();
@@ -562,13 +570,12 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
 
     _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generatePrimaryText);
 
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _generateWrapper);
+
     _defineProperty(_assertThisInitialized(_this), "sideTextClasses", ['post-side__text', 'post-side__side-text', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white']);
 
     _this.data = data;
-    _this.wrapper = document.createElement('div');
-
-    _this.wrapper.classList.add('post-side__container');
-
+    _this.wrapper = _classPrivateMethodGet(_assertThisInitialized(_this), _generateWrapper, _generateWrapper2).call(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -650,6 +657,12 @@ var TextWithSideBlock = /*#__PURE__*/function (_Button) {
   return TextWithSideBlock;
 }(_components_Button__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
+function _generateWrapper2() {
+  var wrapper = document.createElement('div');
+  wrapper.classList.add('post-side__container');
+  return wrapper;
+}
+
 function _generatePrimaryText2() {
   var _this$data$text;
 
@@ -725,7 +738,7 @@ function _generateSideWrapper2(sideTitle, sideTexts, plusButton) {
 function _addField2() {
   var _newTextField$classLi;
 
-  var wrapper = document.querySelector('.post-side__side-wrapper');
+  var wrapper = this.wrapper.querySelector('.post-side__side-wrapper');
   var newTextField = document.createElement('div');
 
   (_newTextField$classLi = newTextField.classList).add.apply(_newTextField$classLi, _toConsumableArray(this.sideTextClasses));

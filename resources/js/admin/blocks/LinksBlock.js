@@ -2,10 +2,12 @@ import Button from "./components/Button";
 import _ from "lodash";
 
 class LinksBlock {
-    wrapper = document.createElement('div');
 
     constructor({data}) {
         this.data = data;
+
+        this.wrapper = document.createElement('div');
+        this.wrapper.classList.add('article-block__wrapper');
     }
     static get toolbox() {
         return {
@@ -15,15 +17,13 @@ class LinksBlock {
     }
 
     render() {
-        const plusButton = Button.getPlusButton(this.addField);
+        const plusButton = Button.getPlusButton(this.#addField.bind(this));
         const title = document.createElement('input');
         const links = this.generateLinks();
 
         title.classList.add('article-block__title', 'appearance-none', 'block', 'w-full', 'bg-gray-200', 'text-gray-700', 'border', 'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-3', 'leading-tight', 'focus:outline-none', 'focus:bg-white');
         title.placeholder = 'Read Also';
         title.value = this.data.title ?? '';
-
-        this.wrapper.classList.add('article-block__wrapper');
 
         this.wrapper.appendChild(title);
         links.forEach(linkNode => this.wrapper.appendChild(linkNode));
@@ -80,7 +80,7 @@ class LinksBlock {
         return links;
     }
 
-    addField() {
+    #addField() {
         this.wrapper.appendChild(this.generateLinks()[0]);
     }
 }
