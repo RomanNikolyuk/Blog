@@ -8,8 +8,7 @@ class TextWithSideBlock extends Button {
         super();
 
         this.data = data;
-        this.wrapper = document.createElement('div');
-        this.wrapper.classList.add('post-side__container');
+        this.wrapper = this.#generateWrapper();
     }
 
     static get toolbox() {
@@ -34,6 +33,13 @@ class TextWithSideBlock extends Button {
         this.wrapper.appendChild(sideWrapper);
 
         return this.wrapper;
+    }
+
+    #generateWrapper() {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('post-side__container');
+
+        return wrapper;
     }
 
     #generatePrimaryText() {
@@ -102,7 +108,7 @@ class TextWithSideBlock extends Button {
     }
 
     #addField() {
-        const wrapper = document.querySelector('.post-side__side-wrapper');
+        const wrapper = this.wrapper.querySelector('.post-side__side-wrapper');
         const newTextField = document.createElement('div');
         newTextField.classList.add(...this.sideTextClasses);
         newTextField.placeholder = 'Side Text';
