@@ -8,6 +8,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::redirect('/', route('articles.index'));
 
 
-    Route::post('upload', [\App\Http\Controllers\Admin\ArticleController::class, 'upload']);
+    Route::post('upload', [\App\Http\Controllers\Admin\ArticleController::class, 'upload'])
+        ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
     Route::post('remove', [\App\Http\Controllers\Admin\ArticleController::class, 'remove']);
 });

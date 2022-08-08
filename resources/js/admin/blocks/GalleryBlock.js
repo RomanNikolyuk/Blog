@@ -8,7 +8,6 @@ class GalleryBlock {
     inputClass = 'gallery__input';
     containerClass = 'gallery__container';
     imageClass = 'gallery__image';
-    csrfToken = document.querySelector('input[name="_token"]').getAttribute('value')
 
     constructor({data}) {
         this.data = data;

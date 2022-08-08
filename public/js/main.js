@@ -106,8 +106,6 @@ var GalleryBlock = /*#__PURE__*/function () {
 
     _defineProperty(this, "imageClass", 'gallery__image');
 
-    _defineProperty(this, "csrfToken", document.querySelector('input[name="_token"]').getAttribute('value'));
-
     this.data = data;
     this.wrapper = document.createElement('div');
   }
@@ -808,9 +806,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../images/icons8-remove-32.png */ "./resources/images/icons8-remove-32.png");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -823,9 +820,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
  // Doing Something with given Photo
 
 var Photo = /*#__PURE__*/function () {
@@ -835,62 +829,57 @@ var Photo = /*#__PURE__*/function () {
 
   _createClass(Photo, null, [{
     key: "uploadFile",
-    value: function uploadFile(event) {
-      var _this = this;
+    value: // Uploads photo by given event listener
+    function () {
+      var _uploadFile = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(event) {
+        var file, container, formData, response, json;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                file = event.target.files[0];
+                container = event.target.parentNode;
+                formData = new FormData();
+                formData.append('image', file);
+                _context.next = 6;
+                return fetch('/admin/upload', {
+                  method: "POST",
+                  body: formData
+                });
 
-      var file = event.target.files[0];
-      var container = event.target.parentNode; // const removeIcon = Photo.removeButton();
+              case 6:
+                response = _context.sent;
+                _context.next = 9;
+                return response.json();
 
-      var formData = new FormData();
-      formData.append('image', file);
-      fetch('/admin/upload', {
-        method: "POST",
-        body: formData,
-        headers: {
-          'X-CSRF-TOKEN': this.csrfToken
-        }
-      }).then( /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(response) {
-          var json;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  if (!response.ok) {
-                    _context.next = 4;
-                    break;
-                  }
+              case 9:
+                json = _context.sent;
 
-                  return _context.abrupt("return", response.json());
-
-                case 4:
-                  _context.next = 6;
-                  return output.json();
-
-                case 6:
-                  json = _context.sent;
-                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                if (!response.ok) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: json.message
                   });
+                } else {
+                  event.target.remove();
+                  container.insertAdjacentHTML('afterbegin', "<img src=\"".concat(json.file.url, "\" alt=\"\" class=\"").concat(this.imageClass, "\">"));
+                }
 
-                case 8:
-                case "end":
-                  return _context.stop();
-              }
+              case 11:
+              case "end":
+                return _context.stop();
             }
-          }, _callee);
-        }));
+          }
+        }, _callee, this);
+      }));
 
-        return function (_x) {
-          return _ref.apply(this, arguments);
-        };
-      }()).then(function (json) {
-        event.target.remove();
-        container.insertAdjacentHTML('afterbegin', "<img src=\"".concat(json.file.url, "\" alt=\"\" class=\"").concat(_this.imageClass, "\">")); // container.appendChild(removeIcon);
-      });
-    }
+      function uploadFile(_x) {
+        return _uploadFile.apply(this, arguments);
+      }
+
+      return uploadFile;
+    }()
   }, {
     key: "removeImage",
     value: function removeImage(event) {
@@ -915,7 +904,7 @@ var Photo = /*#__PURE__*/function () {
     key: "removeButton",
     value: function removeButton() {
       var removeIcon = document.createElement('img');
-      removeIcon.setAttribute('src', _images_icons8_remove_32_png__WEBPACK_IMPORTED_MODULE_1__["default"]);
+      removeIcon.setAttribute('src', removeImg);
       removeIcon.classList.add('gallery__remove-icon');
       removeIcon.addEventListener('click', this.removeImage.bind(this));
       return removeIcon;
@@ -924,8 +913,6 @@ var Photo = /*#__PURE__*/function () {
 
   return Photo;
 }();
-
-_defineProperty(Photo, "csrfToken", document.querySelector('input[name="_token"]').getAttribute('value'));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Photo);
 
@@ -1058,21 +1045,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/icons8-m-50.png?3329cab8d385c336e1c78ab7cb7035be");
-
-/***/ }),
-
-/***/ "./resources/images/icons8-remove-32.png":
-/*!***********************************************!*\
-  !*** ./resources/images/icons8-remove-32.png ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/icons8-remove-32.png?6c35f4a5db3cc63c692feab7c6efbb0c");
 
 /***/ }),
 

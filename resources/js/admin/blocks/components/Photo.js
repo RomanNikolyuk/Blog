@@ -1,40 +1,31 @@
-import removeImg from "../../../../images/icons8-remove-32.png";
 import Swal from "sweetalert2";
 
 // Doing Something with given Photo
 class Photo {
-    static csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
-
-    static uploadFile(event) {
+    // Uploads photo by given event listener
+    static async uploadFile(event) {
         const file = event.target.files[0];
         const container = event.target.parentNode;
-        // const removeIcon = Photo.removeButton();
         const formData = new FormData();
         formData.append('image', file);
 
-        fetch('/admin/upload', {
+        const response = await fetch('/admin/upload', {
             method: "POST",
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': this.csrfToken
-            }
-        }).then(async (response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                const json = await output.json();
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: json.message,
-                });
-            }
-        }).then(json => {
-            event.target.remove();
-            container.insertAdjacentHTML('afterbegin', `<img src="${json.file.url}" alt="" class="${this.imageClass}">`)
-            // container.appendChild(removeIcon);
+            body: formData
         });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: json.message,
+            });
+        } else {
+            event.target.remove();
+            container.insertAdjacentHTML('afterbegin', `<img src="${json.file.url}" alt="" class="${this.imageClass}">`);
+        }
     }
 
     static removeImage(event) {
