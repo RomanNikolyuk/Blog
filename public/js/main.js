@@ -283,10 +283,7 @@ var ImageBlock = /*#__PURE__*/function () {
       return {
         url: image === null || image === void 0 ? void 0 : image.src,
         bigCaption: caption1.value,
-        smallCaption: caption2.value,
-        options: {
-          megaphoto: false
-        }
+        smallCaption: caption2.value
       };
     }
   }, {
@@ -880,35 +877,6 @@ var Photo = /*#__PURE__*/function () {
 
       return uploadFile;
     }()
-  }, {
-    key: "removeImage",
-    value: function removeImage(event) {
-      var container = event.target.parentNode;
-      var oldImage = container.querySelector('img');
-      var imagePath = container.querySelector('img').getAttribute('src');
-      var formData = new FormData();
-      formData.append('image', imagePath);
-      fetch('/admin/remove', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'X-CSRF-TOKEN': this.csrfToken,
-          'accept': 'application/json'
-        }
-      });
-      event.target.remove();
-      oldImage.remove();
-      container.insertAdjacentElement('afterbegin', this.generateImage());
-    }
-  }, {
-    key: "removeButton",
-    value: function removeButton() {
-      var removeIcon = document.createElement('img');
-      removeIcon.setAttribute('src', removeImg);
-      removeIcon.classList.add('gallery__remove-icon');
-      removeIcon.addEventListener('click', this.removeImage.bind(this));
-      return removeIcon;
-    }
   }]);
 
   return Photo;

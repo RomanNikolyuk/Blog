@@ -62,10 +62,7 @@ class ImageBlock {
         return {
             url: image?.src,
             bigCaption: caption1.value,
-            smallCaption: caption2.value,
-            options: {
-                megaphoto: false
-            }
+            smallCaption: caption2.value
         };
     }
 
