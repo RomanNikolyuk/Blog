@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('articles', \App\Http\Controllers\Admin\ArticleController::class)
-        ->except('show', 'destroy');
+        ->except('show', 'destroy')
+        ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
     Route::redirect('/', route('articles.index'));
 
 

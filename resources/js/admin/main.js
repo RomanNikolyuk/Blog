@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 
 const Header = require('@editorjs/header');
 
-const csrfToken = document.querySelector('input[name="_token"]').getAttribute('value');
 const fillData = document.querySelector('script[data-data]').dataset.data;
 const articleId = document.querySelector('script[data-id]').dataset.id;
 
@@ -65,7 +64,6 @@ document.querySelector('#form').addEventListener('submit', async (event) => {
         method: 'POST',
         body: formData,
         headers: {
-            'X-CSRF-TOKEN': csrfToken,
             'accept': 'application/json'
         }
     })
